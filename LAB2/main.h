@@ -1,7 +1,4 @@
 #pragma once
-#define _CRT_SECURE_NO_WARNINGS
-#include <ctime> // Äëÿ time_t, tm
-#include <iostream>
 int nameLength = 20;
 
 
@@ -21,4 +18,14 @@ public:
         int grade);
     Exam();
     void Print();
+    void Input();
+    void PrintDate();
+};
+
+
+static class CheckInput
+{
+public:
+    static int Date();
+    static int Grade();
 };
