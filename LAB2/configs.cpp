@@ -1,1 +1,5 @@
-//#include "configs.h"
+#include "configs.h"
+int configs() 
+{
+    return 0;
+}
