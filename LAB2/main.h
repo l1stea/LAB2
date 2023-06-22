@@ -1,4 +1,8 @@
 #pragma once
+#include <string>
+#include <cmath>
+
+
 int nameLength = 20;
 
 
@@ -23,9 +27,4 @@ public:
 };
 
 
-static class CheckInput
-{
-public:
-    static int Date();
-    static int Grade();
-};
+
