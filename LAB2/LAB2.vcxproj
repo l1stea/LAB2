@@ -129,14 +129,22 @@
   <ItemGroup>
     <ClCompile Include="checkInput.cpp" />
     <ClCompile Include="configs.cpp" />
+    <ClCompile Include="exam.cpp" />
+    <ClCompile Include="group.cpp" />
     <ClCompile Include="inputInt.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkInput.h" />
     <ClInclude Include="configs.h" />
+    <ClInclude Include="group.h" />
     <ClInclude Include="inputInt.h" />
+    <ClInclude Include="exam.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LAB2.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
