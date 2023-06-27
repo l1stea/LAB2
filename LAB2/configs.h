@@ -14,6 +14,8 @@ public:
 
 	const char* globalNameStudent = globalNullString;
 	const char* globalNameExaminer = globalNullString;
+
+
 	const char* globalNameSubject = globalNullString;
 
 

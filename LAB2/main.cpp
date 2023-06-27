@@ -22,9 +22,24 @@ int main()
 	srand(time(NULL));
 	for (int i = 0; i < group.Size(); i++)
 	{
-		Exam exam(namesStud[i], namesExam[i], namesSub[i], time(nullptr),2 + rand() % (5 - 2 + 1));
+		Exam exam(namesStud[i], namesExam[i], namesSub[i], time(nullptr), 2 + rand() % (5 - 2 + 1));
 		group.PutExam(i, exam);
 	}
 
-	group.Print();
+	group.Print(); // 15 задание
+
+	double grade = group.GetExam(3); // 17 задание
+
+	cout << "Неявное преобразование типа Exam в double 4-ого объекта: " << grade << endl;
+
+	cout << "Средняя оценка в группе: " << group.Grade() << endl;
+
+	cout << "Средняя оценка среди тех, у кого оценка не ниже 3: " << group.Grade(3) << endl;
+
+	cout << "\nПерегрузка оператора индексирования (5-ый объект): " << endl;
+	group[4].Print();
+
+	cout << "\nПерегрузка оператора сложения: (1 и 2 объект): " << endl;
+	double sum = group[0] + group[1];
+	cout << sum << endl;
 }
