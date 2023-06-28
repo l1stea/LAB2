@@ -140,7 +140,6 @@
     <ClInclude Include="group.h" />
     <ClInclude Include="inputInt.h" />
     <ClInclude Include="exam.h" />
-    <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

@@ -8,13 +8,13 @@ private:
 	int sizeArray = 0;
 	Exam* exam;
 public:
-	Group(int sizeArray);
-	~Group();
-	void Print();
-	int Size();
-	void PutExam(int i, Exam& exam);
-	Exam& GetExam(int i);
+	Group(int sizeArray); // Конструктор
+	~Group(); // Деструктор
+	void Print(); // Вывод группы объектов Exam в консоль
+	int Size(); // Выдает размер группы
+	void PutExam(int i, Exam& exam); // Ввод ссылки на объект
+	Exam& GetExam(int i); // Выдача ссылки на i-ый объект Exam
 	double Grade(); // Возваращает среднюю оценку в группе
 	double Grade(int limit); // Возвращает среднюю оценку, которая не ниже limit
-	Exam& operator[](int i);
+	Exam& operator[](int i); // Перегрузка оператора индексации
 };

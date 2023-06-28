@@ -18,17 +18,21 @@ int main()
 	char namesSub[5][100] = { "ООП", "Математический анализ", "Теория вероятности",
 		"Философия", "Информационная безопасность" };
 
-	Group group(5);
+	Group group(5); // Конструктор объекта класса Group
 	srand(time(NULL));
 	for (int i = 0; i < group.Size(); i++)
 	{
 		Exam exam(namesStud[i], namesExam[i], namesSub[i], time(nullptr), 2 + rand() % (5 - 2 + 1));
-		group.PutExam(i, exam);
+		group.PutExam(i, exam); // Функция заполнения массива 
 	}
 
-	group.Print(); // 15 задание
+	group.Print(); // Вывод на консоль объекта класса Group
 
-	double grade = group.GetExam(3); // 17 задание
+	group(5);
+
+	group.Print(); // Вывод на консоль объекта класса Group
+
+	double grade = group.GetExam(3); // Неявное преобразование в double. Отдает оценку
 
 	cout << "Неявное преобразование типа Exam в double 4-ого объекта: " << grade << endl;
 

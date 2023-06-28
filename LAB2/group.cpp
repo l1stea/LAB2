@@ -5,12 +5,12 @@ using namespace std;
 Group::Group(int sizeArray)
 {
 	this->sizeArray = sizeArray;
-	exam = new Exam[sizeArray];
+	exam = new Exam[sizeArray]; // new - динамическое выделение памяти
 }
 
 Group::~Group()
 {
-	delete[] exam;
+	delete[] exam; // Освобождение памяти и вызов деструктора для каждого элемента массива
 }
 
 void Group::Print()
