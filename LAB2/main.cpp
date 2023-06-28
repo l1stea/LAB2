@@ -28,9 +28,6 @@ int main()
 
 	group.Print(); // Вывод на консоль объекта класса Group
 
-	group(5);
-
-	group.Print(); // Вывод на консоль объекта класса Group
 
 	double grade = group.GetExam(3); // Неявное преобразование в double. Отдает оценку
 
