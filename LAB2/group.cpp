@@ -56,7 +56,7 @@ double Group::Grade()
 double Group::Grade(int limit)
 {
 	int summ = 0;
-	int count = 0;
+	int count = 0; // —чЄтчик чисел
 	for (int i = 0; i < sizeArray; i++)
 	{
 		try
