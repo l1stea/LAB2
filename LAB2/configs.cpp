@@ -1,5 +1,12 @@
 #include "configs.h"
-int configs() 
+
+
+int Configs::GetSizeGroup()
 {
-    return 0;
+    return this->SizeGroup;
+}
+
+Configs Configs::operator=(Configs cfg)
+{
+    return cfg;
 }

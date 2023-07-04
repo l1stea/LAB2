@@ -1,11 +1,13 @@
 #pragma once
 #include <string>
 #include <cmath>
+#include "configs.h"
 
 
 class Exam
 {
 private:
+    Configs cfg;
     int nameLength = 100;
     char* nameStudent;
     char* nameExaminer;
@@ -13,6 +15,7 @@ private:
     // int date; Потеря данных при использовании time_t
     long long date;
     int grade;
+    int GetNameLength();
 public:
     // Конструктор с параметрами
     Exam(char* nameStudent,

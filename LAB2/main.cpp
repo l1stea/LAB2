@@ -2,6 +2,7 @@
 #include <iostream> // cin и cout
 #include <Windows.h> // Обязательно для SetConsoleCP() и SetConsoleOutputCP()
 #include "group.h"
+#include "university.h"
 using namespace std;
 
 
@@ -43,4 +44,7 @@ int main()
 	cout << "\nПерегрузка оператора сложения: (1 и 2 объект): " << endl;
 	double sum = group[0] + group[1];
 	cout << sum << endl;
+
+	// Дополнительный класс University
+	University university;
 }

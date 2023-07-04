@@ -7,10 +7,8 @@ using namespace std;
 
 
 void Exam::Input() {
-    Configs cfg;
     try
     {
-
         cout << cfg.globalInputNameStudent;
         cin >> nameStudent;
         cout << cfg.globalInputNameExaminer;
@@ -31,7 +29,6 @@ void Exam::Input() {
 
 void Exam::Print()
 {
-    Configs cfg;
     cout << cfg.globalPrintNameStudent << nameStudent << endl;
     cout << cfg.globalPrintNameExaminer << nameExaminer << endl;
     cout << cfg.globalPrintNameSubject << nameSubject << endl;
@@ -43,16 +40,15 @@ void Exam::Print()
 
 Exam::Exam()
 {
-    Configs cfg;
-    nameStudent = new char[nameLength];
-    nameExaminer = new char[nameLength];
-    nameSubject = new char[nameLength];
+    this->nameStudent = new char[GetNameLength()];
+    this->nameExaminer = new char[GetNameLength()];
+    this->nameSubject = new char[GetNameLength()];
     strcpy(nameStudent, cfg.globalNameStudent);
     strcpy(nameExaminer, cfg.globalNameExaminer);
     strcpy(nameSubject, cfg.globalNameSubject);
     time_t t = time(nullptr);
-    date = t;
-    grade = 2;
+    this->date = t;
+    this->grade = 2;
 };
 
 
@@ -62,9 +58,9 @@ Exam::Exam(char* nameSt,
     int dt,
     int gd)
 {
-    nameStudent = new char[nameLength];
-    nameExaminer = new char[nameLength];
-    nameSubject = new char[nameLength];
+    nameStudent = new char[GetNameLength()];
+    nameExaminer = new char[GetNameLength()];
+    nameSubject = new char[GetNameLength()];
     strcpy(nameStudent, nameSt);
     strcpy(nameExaminer, nameEx);
     strcpy(nameSubject, nameSb);
@@ -90,7 +86,6 @@ int year(tm* localtm)
 
 //#include <limits>
 void Exam::PrintDate() {
-    Configs cfg;
     time_t t = date;
     //t = LONG_MAX; // Проблема 2038 года, надо по хорошему использовать другую библиотеку, но по заданию надо использовать дату с типом int
     tm* localtm = localtime(&t);
@@ -109,6 +104,11 @@ Exam::operator double() {
 int Exam::GetGrade()
 {
     return grade;
+}
+
+int Exam::GetNameLength()
+{
+    return cfg.nameLength;
 }
 
 double operator+(Exam& ex1, Exam& ex2)

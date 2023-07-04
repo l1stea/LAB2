@@ -1,11 +1,13 @@
 #include "group.h"
 #include <iostream>
+
 using namespace std;
+
 
 Group::Group(int sizeArray)
 {
 	this->sizeArray = sizeArray;
-	exam = new Exam[sizeArray]; // new - динамическое выделение памяти
+	this->exam = new Exam[sizeArray]; // new - динамическое выделение памяти
 }
 
 Group::~Group()
@@ -23,7 +25,7 @@ void Group::Print()
 
 int Group::Size()
 {
-	return sizeArray;
+	return this->sizeArray;
 }
 
 void Group::PutExam(int i, Exam& exam)
