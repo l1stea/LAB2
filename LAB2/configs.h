@@ -4,8 +4,8 @@
 class Configs
 {
 public:
-	// Начальное id в GroupUniver
-	int IdGroupUniver = 0;
+	// Количество групп в GroupUniver
+	int CountGroup = 3;
 	// Длина строк в Exam
 	const int nameLength = 100;
 	// Размер группы в Unversity

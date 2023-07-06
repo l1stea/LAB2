@@ -19,7 +19,7 @@ int main()
 	char namesSub[5][100] = { "ООП", "Математический анализ", "Теория вероятности",
 		"Философия", "Информационная безопасность" };
 
-	Group group(5); // Конструктор объекта класса Group
+	GroupUniver group(5); // Конструктор объекта класса Group
 	srand(time(NULL));
 	for (int i = 0; i < group.Size(); i++)
 	{
@@ -44,7 +44,17 @@ int main()
 	cout << "\nПерегрузка оператора сложения: (1 и 2 объект): " << endl;
 	double sum = group[0] + group[1];
 	cout << sum << endl;
-
+	//
+	GroupUniver group2(5); // Конструктор объекта класса Group
+	srand(time(NULL));
+	for (int i = 0; i < group2.Size(); i++)
+	{
+		Exam exam(namesStud[i], namesExam[i], namesSub[i], time(nullptr), 2 + rand() % (5 - 2 + 1));
+		group2.PutExam(i, exam); // Функция заполнения массива 
+	}
 	// Дополнительный класс University
 	University university;
+	university.PutGroup(group);
+	university.PutGroup(group2);
+	university.Print();
 }

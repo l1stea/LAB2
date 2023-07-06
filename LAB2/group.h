@@ -17,4 +17,8 @@ public:
 	double Grade(); // Возваращает среднюю оценку в группе
 	double Grade(int limit); // Возвращает среднюю оценку, которая не ниже limit
 	Exam& operator[](int i); // Перегрузка оператора индексации
+	void SetSize(int sizeArray);
+	void NewExam();
+	//operator GroupUniver();
+	//operator GroupUniver(); // оператор приведения типа Group в GroupUniver
 };

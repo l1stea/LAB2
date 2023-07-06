@@ -4,9 +4,8 @@
 
 GroupUniver::GroupUniver(int sizeArray) : Group(sizeArray)
 {
-	this->id = GetId();
-	this->sizeArray = sizeArray;
-	this->exam = new Exam[sizeArray]; // new - динамическое выделение памяти
+	SetSize(sizeArray);
+	NewExam();
 }
 
 int GroupUniver::GetId()

@@ -1,5 +1,6 @@
 #include "group.h"
 #include <iostream>
+#include "groupUniver.h"
 
 using namespace std;
 
@@ -82,3 +83,20 @@ Exam& Group::operator[](int i)
 {
 	return GetExam(i);
 }
+
+void Group::SetSize(int sizeArray)
+{
+	this->sizeArray = sizeArray;
+}
+
+void Group::NewExam()
+{
+	this->exam = new Exam[Size()];
+}
+
+//Group::operator GroupUniver()
+//{
+//	GroupUniver groupUniver(Size());
+//	groupUniver.PutExam(sizeArray, *exam);
+//	return groupUniver;
+//}
