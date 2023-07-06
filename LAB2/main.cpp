@@ -44,12 +44,12 @@ int main()
 	cout << "\nПерегрузка оператора сложения: (1 и 2 объект): " << endl;
 	double sum = group[0] + group[1];
 	cout << sum << endl;
-	//
-	GroupUniver group2(5); // Конструктор объекта класса Group
+	// Создание группы 2
+	GroupUniver group2(5); // Конструктор объекта класса GroupUniver
 	srand(time(NULL));
 	for (int i = 0; i < group2.Size(); i++)
 	{
-		Exam exam(namesStud[i], namesExam[i], namesSub[i], time(nullptr), 2 + rand() % (5 - 2 + 1));
+		Exam exam(namesStud[rand()%5], namesExam[rand()%5], namesSub[rand()%5], time(nullptr), 2 + rand() % (5 - 2 + 1));
 		group2.PutExam(i, exam); // Функция заполнения массива 
 	}
 	// Дополнительный класс University

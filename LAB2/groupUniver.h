@@ -17,6 +17,5 @@ public:
 	Group::Grade;
 	Group::GetExam;
 	Group::operator[];
-	//Exam& operator=(Exam i); // Перегрузка оператора индексации
 };
 
