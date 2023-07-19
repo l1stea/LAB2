@@ -6,13 +6,14 @@ class GroupUniver: Group
 private:
 	int id = 0;
 public:
-	// Переопределение конструктора и добавление новых функций
+	// Конструктор класса GroupUniver и добавление новых функций
 	GroupUniver(int sizeArray);
+	~GroupUniver();
 	int GetId();
 	void SetId(int id);
 	// Использование унаследованных функций
 	Group::Print; 
-	Group::Size;
+	Group::GetSize;
 	Group::PutExam; 
 	Group::Grade;
 	Group::GetExam;

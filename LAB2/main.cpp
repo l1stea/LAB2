@@ -6,7 +6,7 @@
 using namespace std;
 
 
-int main()
+void main()
 {
 	SetConsoleCP(1251); // Ввод с консоли в кодировке 1251
 	SetConsoleOutputCP(1251); // Вывод на консоль в кодировке 1251.
@@ -21,7 +21,7 @@ int main()
 
 	GroupUniver group(5); // Конструктор объекта класса Group
 	srand(time(NULL));
-	for (int i = 0; i < group.Size(); i++)
+	for (int i = 0; i < group.GetSize(); i++)
 	{
 		Exam exam(namesStud[i], namesExam[i], namesSub[i], time(nullptr), 2 + rand() % (5 - 2 + 1));
 		group.PutExam(i, exam); // Функция заполнения массива 
@@ -45,11 +45,12 @@ int main()
 	double sum = group[0] + group[1];
 	cout << sum << endl;
 	// Создание группы 2
+	cout << endl;
 	GroupUniver group2(5); // Конструктор объекта класса GroupUniver
 	srand(time(NULL));
-	for (int i = 0; i < group2.Size(); i++)
+	for (int i = 0; i < group2.GetSize(); i++)
 	{
-		Exam exam(namesStud[rand()%5], namesExam[rand()%5], namesSub[rand()%5], time(nullptr), 2 + rand() % (5 - 2 + 1));
+		Exam exam(namesStud[rand() % 5], namesExam[rand() % 5], namesSub[rand() % 5], time(nullptr), 2 + rand() % (5 - 2 + 1));
 		group2.PutExam(i, exam); // Функция заполнения массива 
 	}
 	// Дополнительный класс University
@@ -57,4 +58,5 @@ int main()
 	university.PutGroup(group);
 	university.PutGroup(group2);
 	university.Print();
+	system("pause");
 }

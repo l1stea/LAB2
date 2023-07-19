@@ -37,6 +37,25 @@ public:
     int GetGrade();
     // Перегрузка операнда +
     friend double operator+(Exam& ex1, Exam& ex2);
+
+    Configs GetCfg();
+    void SetCfg(Configs cfg);
+
+    void SetNameLength(int nameLength);
+
+    char* GetNameStudent();
+    void SetNameStudent(char* NameStudent);
+
+    char* GetNameExaminer();
+    void SetNameExaminer(char* NameExaminer);
+
+    char* GetNameSubject();
+    void SetNameSubject(char* nameSubject);
+
+    long long GetDate();
+    void SetDate(long long date);
+
+    void SetGrade(int grade);
 };
 
 

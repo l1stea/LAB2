@@ -5,14 +5,25 @@ using namespace std;
 
 University::University()
 {
+	cout << "University пустой конструктор вызван" << endl;
 	Name = GetNameUniversity();
 	// Выделяется место под указанное количество групп
 	group = new GroupUniver * [cfg.CountGroup]; 
 }
 
 
+University::University(char* name, int countGroup)
+{
+	cout << "University конструктор вызван" << endl;
+	Name = name;
+	// Выделяется место под указанное количество групп
+	group = new GroupUniver * [countGroup];
+}
+
+
 University::~University()
 {
+	cout << "University деструктор вызван" << endl;
 	delete this->Name;
 	//for (int i = 0; i < GetCountGroup(); i++)
 	//{
@@ -67,11 +78,36 @@ void University::SetCountGroup(int countGroup)
 
 void University::PutGroup(GroupUniver& groupUniver)
 {
-	group[GetCountGroup()] = new GroupUniver(groupUniver.Size());
-	for (int i = 0; i < group[GetCountGroup()]->Size(); i++)
+	group[GetCountGroup()] = new GroupUniver(groupUniver.GetSize());
+	for (int i = 0; i < group[GetCountGroup()]->GetSize(); i++)
 	{
 		group[GetCountGroup()]->PutExam(i, groupUniver[i]);
 	}
 	group[GetCountGroup()]->SetId(GenerateId());
 	CountGroup++;
+}
+
+Configs University::GetCfg()
+{
+	return this->cfg;
+}
+
+void University::SetCfg(Configs cfg)
+{
+	this->cfg = cfg;
+}
+
+void University::SetName(char* name)
+{
+	this->Name = name; 
+}
+
+GroupUniver** University::GetGroup()
+{
+	return this->group;
+}
+
+void University::SetGroup(GroupUniver** group)
+{
+	this->group = group;
 }

@@ -7,12 +7,14 @@ using namespace std;
 
 Group::Group(int sizeArray)
 {
+	cout << "Group конструктор вызван" << endl;
 	this->sizeArray = sizeArray;
 	this->exam = new Exam[sizeArray]; // new - динамическое выделение памяти
 }
 
 Group::~Group()
 {
+	cout << "Group деструктор вызван" << endl;
 	delete[] exam; // Освобождение памяти и вызов деструктора для каждого элемента массива
 }
 
@@ -24,10 +26,6 @@ void Group::Print()
 	}
 }
 
-int Group::Size()
-{
-	return this->sizeArray;
-}
 
 void Group::PutExam(int i, Exam& exam)
 {
@@ -81,7 +79,14 @@ double Group::Grade(int limit)
 
 Exam& Group::operator[](int i)
 {
-	return GetExam(i);
+	try
+	{
+		return GetExam(i);
+	}
+	catch (out_of_range)
+	{
+		cout << "Некорректный индекс" << endl;
+	}
 }
 
 void Group::SetSize(int sizeArray)
@@ -89,9 +94,14 @@ void Group::SetSize(int sizeArray)
 	this->sizeArray = sizeArray;
 }
 
+int Group::GetSize()
+{
+	return this->sizeArray;
+}
+
 void Group::NewExam()
 {
-	this->exam = new Exam[Size()];
+	this->exam = new Exam[GetSize()];
 }
 
 //Group::operator GroupUniver()

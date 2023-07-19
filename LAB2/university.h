@@ -20,6 +20,7 @@ private:
 public:
 	// Конструктор
 	University();
+	University(char* name, int countGroup);
 	// Деструктор
 	~University();
 	void Print();
@@ -29,5 +30,17 @@ public:
 	void SetCountGroup(int countGroup);
 	// Ввести группу (метод принимает псевдоним класса GroupUniver)
 	void PutGroup(GroupUniver& groupUniver);
+
+	// Чтение и запись полей
+	Configs GetCfg();
+	void SetCfg(Configs cfg);
+
+	//int GetCountGroup();
+	//void SetCountGroup(int countGroup);
+
+	void SetName(char* name);
+
+	GroupUniver** GetGroup();
+	void SetGroup(GroupUniver** group);
 };
 
