@@ -1,41 +1,42 @@
 #include "university.h"
 #include <iostream>
 #include "configs.h"
+#pragma warning(disable : 4996)
 using namespace std;
 
 University::University()
 {
-	cout << "University пустой конструктор вызван" << endl;
-	Name = GetNameUniversity();
-	// Выделяется место под указанное количество групп
-	group = new GroupUniver * [cfg.CountGroup]; 
+	cout << "University без параметров конструктор вызван" << endl;
+	name = GetNameUniversity();
+	// Выделяется место под указанное количество групп в конфигах
+	groups = new GroupUniver * [cfg.CountGroup]; 
 }
 
 
 University::University(char* name, int countGroup)
 {
 	cout << "University конструктор вызван" << endl;
-	Name = name;
+	name = name;
 	// Выделяется место под указанное количество групп
-	group = new GroupUniver * [countGroup];
+	groups = new GroupUniver * [countGroup];
 }
 
 
 University::~University()
 {
 	cout << "University деструктор вызван" << endl;
-	delete this->Name;
+	delete this->name;
 	//for (int i = 0; i < GetCountGroup(); i++)
 	//{
-	//	delete[] group[i];
-	//}
-	delete[] group;
+	//	delete[] groups[i];
+	//} 
+	delete[] groups;
 }
 
 
 int University::GetCountGroup()
 {
-	return this->CountGroup;
+	return this->countGroup;
 }
 
 
@@ -55,36 +56,36 @@ char* University::GetNameUniversity()
 
 void University::Print()
 {
-	cout << "\nНаименование учреждения: " << this->Name;
+	cout << "\nНаименование учреждения: " << this->name;
 	for (int i = 0; i < GetCountGroup(); i++)
 	{
-		cout << "\nНомер группы: " << group[i]->GetId() << endl;
-		group[i]->Print();
+		cout << "\nНомер группы: " << groups[i]->GetId() << endl;
+		groups[i]->Print();
 	}
 }
 
 
 char* University::GetName()
 {
-	return this->Name;
+	return this->name;
 }
 
 
 void University::SetCountGroup(int countGroup)
 {
-	this->CountGroup = countGroup;
+	this->countGroup = countGroup;
 }
 
 
 void University::PutGroup(GroupUniver& groupUniver)
 {
-	group[GetCountGroup()] = new GroupUniver(groupUniver.GetSize());
-	for (int i = 0; i < group[GetCountGroup()]->GetSize(); i++)
+	groups[GetCountGroup()] = new GroupUniver(groupUniver.GetSize());
+	for (int i = 0; i < groups[GetCountGroup()]->GetSize(); i++)
 	{
-		group[GetCountGroup()]->PutExam(i, groupUniver[i]);
+		groups[GetCountGroup()]->PutExam(i, groupUniver[i]);
 	}
-	group[GetCountGroup()]->SetId(GenerateId());
-	CountGroup++;
+	groups[GetCountGroup()]->SetId(GenerateId());
+	countGroup++;
 }
 
 Configs University::GetCfg()
@@ -99,15 +100,15 @@ void University::SetCfg(Configs cfg)
 
 void University::SetName(char* name)
 {
-	this->Name = name; 
+	this->name = name;
 }
 
 GroupUniver** University::GetGroup()
 {
-	return this->group;
+	return this->groups;
 }
 
 void University::SetGroup(GroupUniver** group)
 {
-	this->group = group;
+	this->groups = group;
 }

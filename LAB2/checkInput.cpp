@@ -4,12 +4,15 @@
 #include "inputInt.h"
 #include "configs.h"
 using namespace std;
+#pragma warning(disable : 4996)
 
 
 int CheckInput::Grade()
 {
     Configs cfg;
-    return inputInt::InputInt("Оценка", cfg.minGrade, cfg.maxGrade);
+    char* gradeword = new char[10];
+    strcpy(gradeword, "Оценка");
+    return inputInt::InputInt(gradeword, cfg.minGrade, cfg.maxGrade);
 }
 
 
@@ -27,13 +30,11 @@ int CheckInput::Date()
         cin.ignore(1);
         cin >> year;
         if (cin.fail()) {
-            cout << "Неверный ввод, повторите.\n";
             cin.clear();
             cin.ignore((numeric_limits<streamsize>::max)(), '\n');
         }
 
     } while (!CheckInput::CheckDate(day, month, year));
-    cout << endl;
     time_t rawtime;
     struct tm* timeinfo;
     time(&rawtime);
@@ -48,16 +49,30 @@ int CheckInput::Date()
 bool CheckInput::CheckDate(int day, int month, int year)
 {
     bool month31[12]{ true, false, true, false, true, false, true, true, false, true, false, true };
-    if (year < 1900 || year > 2037) return false;
-    if (month < 1 || month > 12) return false;
-    if (month == 2 && (day < 1 || day > 29)) return false;
+    if (year < 1900 || year > 2037)
+    {
+        cout << "Некорректная дата" << endl;
+        return false;
+    }
+    if (month < 1 || month > 12)
+    {
+        cout << "Месяц должен быть от 1 по 12" << endl;
+        return false;
+    }
+    if (month == 2 && (day < 1 || day > 29))
+    {
+        cout << "Февряль должен быть от 1 до 29" << endl;
+        return false;
+    }
     if (month == 2)
     {
         if ((day >= 1 && day <= 29 && (year % 4 == 0)) || (day >= 1 && day <= 28 && (year % 4 != 0))) return true;
+        cout << "Некорректный день в феврале" << endl;
         return false;
     }
 
     if (month31[month - 1] && day <= 31 && day >= 1) return true;
     if (!month31[month - 1] && day <= 30 && day >= 1) return true;
+    cout << "Некорректная дата" << endl;
     return false;
 }

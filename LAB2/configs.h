@@ -24,9 +24,9 @@ public:
 	// Пустая строка
 	// char* globalNullString = "Не указано";
 	char* globalNullString = DefaultGlobalNullString();
-	const char* globalNameStudent = DefaultGlobalNullString();
-	const char* globalNameExaminer = DefaultGlobalNullString();
-	const char* globalNameSubject = DefaultGlobalNullString();
+	char* globalNameStudent = DefaultGlobalNullString();
+	char* globalNameExaminer = DefaultGlobalNullString();
+	char* globalNameSubject = DefaultGlobalNullString();
 
 
 	//const char* globalPrintNameStudent = "ФИО студента: ";
@@ -80,7 +80,7 @@ public:
 	void SetNameLength(int nameLength);
 
 	int GetCountGroup();
-	void SetCountGroup(int setCountGroup);
+	void SetCountGroup(int CountGroup);
 
 	int GetMinGrade();
 	void SetMinGrade(int minGrade);
@@ -92,7 +92,7 @@ public:
 	void SetMinDate(int minDate);
 
 	int GetMaxDate();
-	int SetMaxDate(int maxDate);
+	void SetMaxDate(int maxDate);
 
 	int GetStringLength();
 	void SetStringLength(int stringLength);

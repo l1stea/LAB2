@@ -19,7 +19,34 @@ void main()
 	char namesSub[5][100] = { "ООП", "Математический анализ", "Теория вероятности",
 		"Философия", "Информационная безопасность" };
 
-	GroupUniver group(5); // Конструктор объекта класса Group
+	Group groupobject(5); // Конструктор объекта класса Group
+	srand(time(NULL));
+	for (int i = 0; i < groupobject.GetSize(); i++)
+	{
+		Exam exam(namesStud[i], namesExam[i], namesSub[i], time(nullptr), 2 + rand() % (5 - 2 + 1));
+		groupobject.PutExam(i, exam); // Функция заполнения массива 
+	}
+	groupobject.Print(); // Вывод на консоль объекта класса Group
+
+	cout << "Средняя оценка в группе: " << groupobject.Grade() << endl;
+	cout << "Средняя оценка среди тех, у кого оценка не ниже 3: " << groupobject.Grade(3) << endl;
+	cout << endl;
+
+	double grade = groupobject.GetExam(3); // Неявное преобразование в double. Отдает оценку
+	cout << "Неявное преобразование типа Exam в double 4-ого объекта: " << grade << endl;
+	cout << endl;
+
+	cout << "\nПерегрузка оператора индексирования (5-ый объект): " << endl;
+	groupobject[4].Print();
+
+	cout << "\nПерегрузка оператора сложения: (1 и 2 объект): " << endl;
+	double sum = groupobject[0] + groupobject[1];
+	cout << sum << endl;
+	cout << "----------------------------------------------------------------------------------------------------";
+	cout << endl;
+
+	// Cоздание группы 1
+	GroupUniver group(1); // Конструктор объекта класса GroupUniver
 	srand(time(NULL));
 	for (int i = 0; i < group.GetSize(); i++)
 	{
@@ -27,26 +54,9 @@ void main()
 		group.PutExam(i, exam); // Функция заполнения массива 
 	}
 
-	group.Print(); // Вывод на консоль объекта класса Group
-
-
-	double grade = group.GetExam(3); // Неявное преобразование в double. Отдает оценку
-
-	cout << "Неявное преобразование типа Exam в double 4-ого объекта: " << grade << endl;
-
-	cout << "Средняя оценка в группе: " << group.Grade() << endl;
-
-	cout << "Средняя оценка среди тех, у кого оценка не ниже 3: " << group.Grade(3) << endl;
-
-	cout << "\nПерегрузка оператора индексирования (5-ый объект): " << endl;
-	group[4].Print();
-
-	cout << "\nПерегрузка оператора сложения: (1 и 2 объект): " << endl;
-	double sum = group[0] + group[1];
-	cout << sum << endl;
 	// Создание группы 2
 	cout << endl;
-	GroupUniver group2(5); // Конструктор объекта класса GroupUniver
+	GroupUniver group2(1); // Конструктор объекта класса GroupUniver
 	srand(time(NULL));
 	for (int i = 0; i < group2.GetSize(); i++)
 	{
@@ -58,5 +68,49 @@ void main()
 	university.PutGroup(group);
 	university.PutGroup(group2);
 	university.Print();
+
+	cout << "----------------------------------------------------------------------------------------------------";
+	cout << endl;
+	// Проверка ввода
+	cout << "\nВведите количество группы:";
+	int count;
+	cin >> count;
+	if (cin.fail()) {
+		cin.clear();
+		cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+		count = 0;
+	}
+	Group group3(count);
+	for (int i = 0; i < group3.GetSize(); i++)
+	{
+		Exam exam;
+		exam.Input(); // Ввод с проверкой
+		cout << "\nПроверка метода ввода PutExam с неправильным индексом:" << endl;
+		group3.PutExam(i+5, exam); // Функция заполнения массива 
+		cout << "\nПроверка оператора индексирования:" << endl;
+		group3[2]; // Проверка некорректного индекса
+	}
+
+	// Вызов конструктора с динамическим заполнением
+	cout << endl;
+	cout << "Конструктор с динамическим заполнением" << endl;
+	Group testDinGroup(2); // Конструктор объекта класса GroupUniver
+	srand(time(NULL));
+	for (int i = 0; i < testDinGroup.GetSize(); i++)
+	{
+		Exam exam(namesStud[rand() % 5], namesExam[rand() % 5], namesSub[rand() % 5], time(nullptr), 2 + rand() % (5 - 2 + 1));
+		testDinGroup.PutExam(i, exam); // Функция заполнения массива 
+	}
+	testDinGroup.Print();
+
+
+	// Вызов конструктора внутри, которого вызывается статическое выделение памяти = 2
+	cout << endl;
+	cout << "Конструктор со статическим заполнением:" << endl;
+	Group testStatGroup; // Конструктор объекта класса GroupUniver
+	testStatGroup.Print();
+
+
+	// Пауза в консоли для просмотра результата
 	system("pause");
 }

@@ -9,14 +9,34 @@ using namespace std;
 void Exam::Input() {
     try
     {
-        cout << cfg.globalInputNameStudent;
-        cin >> nameStudent;
-        cout << cfg.globalInputNameExaminer;
-        cin >> nameExaminer;
-        cout << cfg.globalInputNameSubject;
-        cin >> nameSubject;
-        date = CheckInput::Date();
-        grade = CheckInput::Grade();
+        string str;
+
+        do
+        {
+            cout << cfg.globalInputNameStudent;
+            cin >> str;
+            if (str.length() > cfg.GetNameLength()) cout << "Введенная строка больше заданной длины: " << cfg.GetNameLength() << endl;
+        } while (str.length() > cfg.GetNameLength());
+        strcpy(nameStudent, str.c_str());
+
+        do
+        {
+            cout << cfg.globalInputNameExaminer;
+            cin >> str;
+            if (str.length() > cfg.GetNameLength()) cout << "Введенная строка больше заданной длины: " << cfg.GetNameLength() << endl;
+        } while (str.length() > cfg.GetNameLength());
+        strcpy(nameExaminer, str.c_str());
+
+        do
+        {
+            cout << cfg.globalInputNameSubject;
+            cin >> str;
+            if (str.length() > cfg.GetNameLength()) cout << "Введенная строка больше заданной длины: " << cfg.GetNameLength() << endl;
+        } while (str.length() > cfg.GetNameLength());
+        strcpy(nameSubject, str.c_str());
+
+        date = CheckInput::Date(); // Проверка даты
+        grade = CheckInput::Grade(); // Проверка оценки от 2 до 5
         cout << endl;
     }
     catch (exception ex)
@@ -98,7 +118,9 @@ void Exam::PrintDate() {
 
 //  Приведение типов
 Exam::operator double() { 
-    return this->grade; // Оператор this (указатель на объект) -  в данном случае указывает на значание из объекта класса по указанному атрибуту
+    // Оператор this (указатель на объект) - 
+    //в данном случае указывает на значание из объекта класса по указанному атрибуту
+    return this->grade; 
 }
 
 int Exam::GetGrade()
@@ -106,9 +128,69 @@ int Exam::GetGrade()
     return grade;
 }
 
+Configs Exam::GetCfg()
+{
+    return this->cfg;
+}
+
+void Exam::SetCfg(Configs cfg)
+{
+    this->cfg = cfg;
+}
+
+void Exam::SetNameLength(int nameLength)
+{
+    this->nameLength = nameLength;
+}
+
+char* Exam::GetNameStudent()
+{
+    return this->nameStudent;
+}
+
+void Exam::SetNameStudent(char* nameStudent)
+{
+    this->nameStudent = nameStudent;
+}
+
+char* Exam::GetNameExaminer()
+{
+    return this->nameExaminer;
+}
+
+void Exam::SetNameExaminer(char* nameExaminer)
+{
+    this->nameExaminer = nameExaminer;
+}
+
+char* Exam::GetNameSubject()
+{
+    return this->nameSubject;
+}
+
+void Exam::SetNameSubject(char* nameSubject)
+{
+    this->nameSubject = nameSubject;
+}
+
+long long Exam::GetDate()
+{
+    return this->date;
+}
+
+void Exam::SetDate(long long date)
+{
+    this->date = date;
+}
+
+void Exam::SetGrade(int grade)
+{
+    this->grade = grade;
+}
+
 int Exam::GetNameLength()
 {
-    return cfg.nameLength;
+    return this->nameLength;
 }
 
 double operator+(Exam& ex1, Exam& ex2)

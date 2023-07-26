@@ -8,7 +8,7 @@ class Exam
 {
 private:
     Configs cfg;
-    int nameLength = 100;
+    int nameLength = cfg.GetNameLength();
     char* nameStudent;
     char* nameExaminer;
     char* nameSubject;
@@ -44,10 +44,10 @@ public:
     void SetNameLength(int nameLength);
 
     char* GetNameStudent();
-    void SetNameStudent(char* NameStudent);
+    void SetNameStudent(char* nameStudent);
 
     char* GetNameExaminer();
-    void SetNameExaminer(char* NameExaminer);
+    void SetNameExaminer(char* nameExaminer);
 
     char* GetNameSubject();
     void SetNameSubject(char* nameSubject);

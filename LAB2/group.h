@@ -6,9 +6,13 @@ class Group
 {
 private:
 	int sizeArray = 0;
-	Exam* exam;
+	Exam* exam;	
 public:
 	Group(int sizeArray); // Конструктор
+	// Добавлены варианты создания объекта;
+	Group();
+	Group(int sizeArray, Exam* exam);
+	Group(Exam* exam);
 	~Group(); // Деструктор
 	void Print(); // Вывод группы объектов Exam в консоль
 	void PutExam(int i, Exam& exam); // Ввод ссылки на объект

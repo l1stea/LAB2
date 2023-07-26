@@ -6,6 +6,7 @@ class GroupUniver: Group
 private:
 	int id = 0;
 public:
+	GroupUniver();
 	// Конструктор класса GroupUniver и добавление новых функций
 	GroupUniver(int sizeArray);
 	~GroupUniver();
