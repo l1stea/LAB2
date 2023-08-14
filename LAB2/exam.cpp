@@ -35,8 +35,8 @@ void Exam::Input() {
         } while (str.length() > cfg.GetNameLength());
         strcpy(nameSubject, str.c_str());
 
-        date = CheckInput::Date(); // Проверка даты
-        grade = CheckInput::Grade(); // Проверка оценки от 2 до 5
+        date = CheckInput::GetDate(); // Проверка даты
+        grade = CheckInput::GetGrade(); // Проверка оценки от 2 до 5
         cout << endl;
     }
     catch (exception ex)
@@ -69,7 +69,12 @@ Exam::Exam()
     time_t t = time(nullptr);
     this->date = t;
     this->grade = 2;
-};
+}
+Exam::~Exam()
+{
+    cout << "Вызван Деструктор Exam (память динамически нигде не выделяется)\n";
+}
+;
 
 
 Exam::Exam(char* nameSt,

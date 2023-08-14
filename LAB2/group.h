@@ -17,8 +17,8 @@ public:
 	void Print(); // Вывод группы объектов Exam в консоль
 	void PutExam(int i, Exam& exam); // Ввод ссылки на объект
 	Exam& GetExam(int i); // Выдача ссылки на i-ый объект Exam
-	double Grade(); // Возваращает среднюю оценку в группе
-	double Grade(int limit); // Возвращает среднюю оценку, которая не ниже limit
+	double GetGrade(); // Возваращает среднюю оценку в группе
+	double GetGrade(int limit); // Возвращает среднюю оценку, которая не ниже limit
 	Exam& operator[](int i); // Перегрузка оператора индексации
 	int GetSize();
 	void SetSize(int sizeArray);

@@ -1,22 +1,63 @@
 #include "checkInput.h"
 #include <string>
 #include <iostream>
-#include "inputInt.h"
 #include "configs.h"
 using namespace std;
 #pragma warning(disable : 4996)
 
 
-int CheckInput::Grade()
+int CheckInput::GetIntBetween(char* words, int min, int max)
+{
+    int N;
+    if (max < min)
+    {
+        int swap = max;
+        max = min;
+        min = swap;
+    }
+    for (;;) {
+        cout << words << " (целое от " << min << " до " << max << "): " << flush;
+        if ((cin >> N).good() && (min <= N) && (N <= max)) return N;
+        if (cin.fail()) {
+            cin.clear();
+            cout << "Неверный ввод, повторите.\n";
+        }
+        else {
+            cout << "Число вне допустимого диапазона значений. Повторите ввод.\n";
+        }
+        cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+    }
+}
+
+int CheckInput::GetGrade()
 {
     Configs cfg;
     char* gradeword = new char[10];
     strcpy(gradeword, "Оценка");
-    return inputInt::InputInt(gradeword, cfg.minGrade, cfg.maxGrade);
+    return GetIntBetween(gradeword, cfg.minGrade, cfg.maxGrade);
 }
 
 
-int CheckInput::Date()
+
+int CheckInput::GetIndex(int sizeArray)
+{
+    while (sizeArray < 1)
+    {
+        cout << "Размер группы должен быть больше 0 и меньше 2 147 483 647. Введите число:\n";
+        cin >> sizeArray;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+        }
+
+    }
+    return sizeArray;
+}
+
+
+
+
+int CheckInput::GetDate()
 {
     int day = 0;
     int month = 0;
@@ -34,7 +75,7 @@ int CheckInput::Date()
             cin.ignore((numeric_limits<streamsize>::max)(), '\n');
         }
 
-    } while (!CheckInput::CheckDate(day, month, year));
+    } while (!GetCheckDate(day, month, year));
     time_t rawtime;
     struct tm* timeinfo;
     time(&rawtime);
@@ -46,7 +87,7 @@ int CheckInput::Date()
 }
 
 
-bool CheckInput::CheckDate(int day, int month, int year)
+bool CheckInput::GetCheckDate(int day, int month, int year)
 {
     bool month31[12]{ true, false, true, false, true, false, true, true, false, true, false, true };
     if (year < 1900 || year > 2037)

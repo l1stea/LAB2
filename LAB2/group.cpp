@@ -5,19 +5,10 @@
 using namespace std;
 
 
+// Не должно быть вводимых данных
 Group::Group(int sizeArray)
 {
 	cout << "Group конструктор вызван" << endl;
-	while (sizeArray<1)
-	{
-		cout << "Размер группы должен быть больше 0 и меньше 2 147 483 647. Введите число:\n";
-		cin >> sizeArray;
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore((numeric_limits<streamsize>::max)(), '\n');
-		}
-		
-	}
 	this->sizeArray = sizeArray;
 	this->exam = new Exam[sizeArray]; // new - динамическое выделение памяти
 }
@@ -98,7 +89,7 @@ Exam& Group::GetExam(int i)
 	return exam[i];
 }
 
-double Group::Grade()
+double Group::GetGrade()
 {
 	int summ = 0;
 	for (int i = 0; i < sizeArray; i++)
@@ -115,7 +106,7 @@ double Group::Grade()
 	return summ * 1.0 / sizeArray;
 }
 
-double Group::Grade(int limit)
+double Group::GetGrade(int limit)
 {
 	int summ = 0;
 	int count = 0; // Счётчик чисел

@@ -2,7 +2,8 @@
 #include <iostream> // cin и cout
 #include <Windows.h> // Обязательно для SetConsoleCP() и SetConsoleOutputCP()
 #include "group.h"
-#include "university.h"
+#include "groupUniver.h"
+#include "checkInput.h"
 using namespace std;
 
 
@@ -19,7 +20,8 @@ void main()
 	char namesSub[5][100] = { "ООП", "Математический анализ", "Теория вероятности",
 		"Философия", "Информационная безопасность" };
 
-	Group groupobject(5); // Конструктор объекта класса Group
+	int index = CheckInput::GetIndex(5);
+	Group groupobject(index); // Конструктор объекта класса Group
 	srand(time(NULL));
 	for (int i = 0; i < groupobject.GetSize(); i++)
 	{
@@ -28,8 +30,8 @@ void main()
 	}
 	groupobject.Print(); // Вывод на консоль объекта класса Group
 
-	cout << "Средняя оценка в группе: " << groupobject.Grade() << endl;
-	cout << "Средняя оценка среди тех, у кого оценка не ниже 3: " << groupobject.Grade(3) << endl;
+	cout << "Средняя оценка в группе: " << groupobject.GetGrade() << endl;
+	cout << "Средняя оценка среди тех, у кого оценка не ниже 3: " << groupobject.GetGrade(3) << endl;
 	cout << endl;
 
 	double grade = groupobject.GetExam(3); // Неявное преобразование в double. Отдает оценку
@@ -63,24 +65,14 @@ void main()
 		Exam exam(namesStud[rand() % 5], namesExam[rand() % 5], namesSub[rand() % 5], time(nullptr), 2 + rand() % (5 - 2 + 1));
 		group2.PutExam(i, exam); // Функция заполнения массива 
 	}
-	// Дополнительный класс University
-	University university;
-	university.PutGroup(group);
-	university.PutGroup(group2);
-	university.Print();
 
 	cout << "----------------------------------------------------------------------------------------------------";
 	cout << endl;
 	// Проверка ввода
-	cout << "\nВведите количество группы:";
+	cout << "\nВведите количество студентов группы:";
 	int count;
 	cin >> count;
-	if (cin.fail()) {
-		cin.clear();
-		cin.ignore((numeric_limits<streamsize>::max)(), '\n');
-		count = 0;
-	}
-	Group group3(count);
+	Group group3(CheckInput::GetIndex(count));
 	for (int i = 0; i < group3.GetSize(); i++)
 	{
 		Exam exam;
@@ -94,7 +86,7 @@ void main()
 	// Вызов конструктора с динамическим заполнением
 	cout << endl;
 	cout << "Конструктор с динамическим заполнением" << endl;
-	Group testDinGroup(2); // Конструктор объекта класса GroupUniver
+	Group testDinGroup(CheckInput::GetIndex(2)); // Конструктор объекта класса GroupUniver
 	srand(time(NULL));
 	for (int i = 0; i < testDinGroup.GetSize(); i++)
 	{

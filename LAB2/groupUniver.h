@@ -16,7 +16,7 @@ public:
 	Group::Print; 
 	Group::GetSize;
 	Group::PutExam; 
-	Group::Grade;
+	Group::GetGrade;
 	Group::GetExam;
 	Group::operator[];
 };
