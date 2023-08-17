@@ -1,3 +1,4 @@
+// ReSharper disable CommentTypo
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
 // Used by LAB2.rc

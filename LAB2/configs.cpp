@@ -1,175 +1,175 @@
+// ReSharper disable CppDeprecatedEntity
 #include <cstring>
 #include "configs.h"
 #pragma warning(disable : 4996)
 using namespace std;
 
 
-int Configs::GetSizeGroup()
+int configs::get_size_group() const
 {
-    return this->SizeGroup;
+    return this->size_group;
 }
 
-void Configs::SetSizeGroup(int sizeGroup)
+void configs::set_size_group(const int m_size_group)
 {
-    this->SizeGroup = sizeGroup;
+    this->size_group = m_size_group;
 }
 
-Configs Configs::operator=(Configs cfg)
+configs configs::operator=(configs i) const  // NOLINT(misc-unconventional-assign-operator)
 {
-    return cfg;
+    return i;
 }
 
-int Configs::GetNameLength()
+int configs::get_name_length() const
 {
-    return this->nameLength;
+    return this->name_length;
 }
 
-void Configs::SetNameLength(int nameLength)
+void configs::set_name_length(const int m_name_length)
 {
-    this->nameLength = nameLength;
+    this->name_length = m_name_length;
 }
 
-int Configs::GetCountGroup()
+int configs::get_count_group() const
 {
-    return this->CountGroup;
+    return this->count_group;
 }
 
-void Configs::SetCountGroup(int CountGroup)
+void configs::set_count_group(const int m_count_group)
 {
-    this->CountGroup = CountGroup;
+    this->count_group = m_count_group;
 }
 
-int Configs::GetMinGrade()
+int configs::get_min_grade() const
 {
-    return this->minGrade;
+    return this->min_grade;
 }
 
-void Configs::SetMinGrade(int minGrade)
+void configs::set_min_grade(const int m_min_grade)
 {
-    this->minGrade = minGrade;
+    this->min_grade = m_min_grade;
 }
 
-int Configs::GetMaxGrade()
+int configs::get_max_grade() const
 {
-    return this->maxGrade;
+    return this->max_grade;
 }
 
-void Configs::SetMaxGrade(int maxGrade)
+void configs::set_max_grade(const int m_max_grade)
 {
-    this->maxGrade = maxGrade;
+    this->max_grade = m_max_grade;
 }
 
-int Configs::GetMinDate()
+int configs::get_min_date() const
 {
-    return this->minDate;
+    return this->min_date;
 }
 
-void Configs::SetMinDate(int minDate)
+void configs::set_min_date(const int m_min_date)
 {
-    this->minDate = minDate;
+    this->min_date = m_min_date;
 }
 
-int Configs::GetMaxDate()
+int configs::get_max_date() const
 {
-    return this->maxDate;
+    return this->max_date;
 }
 
-void Configs::SetMaxDate(int maxDate)
+void configs::set_max_date(const int m_max_date)
 {
-    this->maxDate = maxDate;
+    this->max_date = m_max_date;
 }
 
-int Configs::GetStringLength()
+int configs::get_string_length() const
 {
-    return this->stringLength;
+    return this->string_length;
 }
 
-void Configs::SetStringLength(int stringLength)
+void configs::set_string_length(const int m_string_length)
 {
-    this->stringLength = stringLength;
+    this->string_length = m_string_length;
 }
 
-char* Configs::DefaultGlobalNullString()
+char* configs::default_global_null_string()
 {
-
-    char* var_return = new char[100];
+	const auto var_return = new char[100];
     strcpy(var_return, "Не указано");
     return var_return;
 }
 
-char* Configs::DefaultGlobalPrintNameStudent()
+char* configs::default_global_print_name_student()
 {
-    char* var_return = new char[100];
+	const auto var_return = new char[100];
     strcpy(var_return, "ФИО студента: ");
     return var_return;
 }
 
-char* Configs::DefaultGlobalPrintNameExaminer()
+char* configs::default_global_print_name_examiner()
 {
-    char* var_return = new char[100];
+	const auto var_return = new char[100];
     strcpy(var_return, "ФИО экзаменатора: ");
     return var_return;
 }
 
-char* Configs::DefaultGlobalPrintNameSubject()
+char* configs::default_global_print_name_subject()
 {
-    char* var_return = new char[100];
+	const auto var_return = new char[100];
     strcpy(var_return, "Предмет: ");
     return var_return;
 }
 
-char* Configs::DefaultGlobalPrintDate()
+char* configs::default_global_print_date()
 {
-    char* var_return = new char[100];
+	const auto var_return = new char[100];
     strcpy(var_return, "Дата: ");
     return var_return;
 }
 
-char* Configs::DefaultGlobalPrintGrade()
+char* configs::default_global_print_grade()
 {
-    char* var_return = new char[100];
+	const auto var_return = new char[100];
     strcpy(var_return, "Оценка: ");
     return var_return;
 }
 
-char* Configs::DefaultGlobalInputNameStudent()
+char* configs::default_global_input_name_student()
 {
-    char* var_return = new char[100];
+	const auto var_return = new char[100];
     strcpy(var_return, "Введите ФИО студента: ");
     return var_return;
 }
 
-char* Configs::DefaultGlobalInputNameExaminer()
+char* configs::default_global_input_name_examiner()
 {
-    char* var_return = new char[100];
+	const auto var_return = new char[100];
     strcpy(var_return, "Введите ФИО преподователя: ");
     return var_return;
 }
 
-char* Configs::DefaultGlobalInputNameSubject()
+char* configs::default_global_input_name_subject()
 {
-    char* var_return = new char[100];
+	const auto var_return = new char[100];
     strcpy(var_return, "Введите предмет: ");
     return var_return;
 }
 
-char* Configs::DefaultGlobalInputDate()
+char* configs::default_global_input_date()
 {
-    char* var_return = new char[100];
+	const auto var_return = new char[100];
     strcpy(var_return, "Введите дату: ");
     return var_return;
 }
 
-char* Configs::DefaultGlobalInputGrade()
+char* configs::default_global_input_grade()
 {
-    char* var_return = new char[100];
+	const auto var_return = new char[100];
     strcpy(var_return, "Введите оценку: ");
     return var_return;
 }
 
-char* Configs::DefaultGlobalInputError()
+char* configs::default_global_input_error()
 {
-    char* var_return = new char[100];
+	const auto var_return = new char[100];
     strcpy(var_return, "Ошибка ввода: ");
     return var_return;
 }

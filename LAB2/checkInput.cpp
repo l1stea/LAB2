@@ -1,23 +1,29 @@
+// ReSharper disable CommentTypo
+// ReSharper disable CppClangTidyCertErr33C
+// ReSharper disable CppDeprecatedEntity
 #include "checkInput.h"
-#include <string>
 #include <iostream>
 #include "configs.h"
 using namespace std;
 #pragma warning(disable : 4996)
 
 
-int CheckInput::GetIntBetween(char* words, int min, int max)
+int check_input::get_int_between(const char* words, int min, int max)
 {
-    int N;
+    int n;
     if (max < min)
     {
-        int swap = max;
+        const int swap = max;
         max = min;
         min = swap;
     }
     for (;;) {
-        cout << words << " (целое от " << min << " до " << max << "): " << flush;
-        if ((cin >> N).good() && (min <= N) && (N <= max)) return N;
+	    cout << words << " (целое от " << min << " до " << max << "): " << flush;
+	    // ReSharper restore StringLiteralTypo
+	    if ((cin >> n).good() && min <= n && n <= max) return n;
+        if (n < 0) cout << "Оценка не может быть отрицательной\n";
+        if (n >= 0 && n < 2 && !cin.fail()) cout << "Оценка должна быть больше или равна 2!\n";
+        if (n > 5) cout << "Оценка должна быть меньше или равна 5!\n";
         if (cin.fail()) {
             cin.clear();
             cout << "Неверный ввод, повторите.\n";
@@ -29,35 +35,56 @@ int CheckInput::GetIntBetween(char* words, int min, int max)
     }
 }
 
-int CheckInput::GetGrade()
+bool check_input::check_string(const string& input, const int name_length)
 {
-    Configs cfg;
-    char* gradeword = new char[10];
-    strcpy(gradeword, "Оценка");
-    return GetIntBetween(gradeword, cfg.minGrade, cfg.maxGrade);
+    if (input.length() > name_length)
+    {
+        cout << "Введенная строка больше заданной длины: " << name_length << endl;
+        return false;
+    }
+    return true;
+}
+
+int check_input::get_grade()
+{
+	const configs cfg;
+	const auto grade_word = new char[10];
+    strcpy(grade_word, "Оценка");
+    return get_int_between(grade_word, cfg.min_grade, cfg.max_grade);
 }
 
 
 
-int CheckInput::GetIndex(int sizeArray)
+int check_input::get_size_array()
 {
-    while (sizeArray < 1)
+    cout << "\nВведите количество студентов группы:";
+    int size_array;
+    cin >> size_array;
+    while (!check_size_array(size_array))
     {
-        cout << "Размер группы должен быть больше 0 и меньше 2 147 483 647. Введите число:\n";
-        cin >> sizeArray;
+        if (size_array < 1 && !cin.fail()) cout << "Размер группы должен быть больше 0!\n";
         if (cin.fail()) {
+            cout << "Вы ввели не число или слишком большое число!\n";
             cin.clear();
             cin.ignore((numeric_limits<streamsize>::max)(), '\n');
         }
-
+        cout << "\nВведите количество студентов группы:";
+        cin >> size_array;
     }
-    return sizeArray;
+    return size_array;
+}
+
+bool check_input::check_size_array(const int size_array)
+{
+    if (size_array < 1)
+		return false;
+    return true;
 }
 
 
 
 
-int CheckInput::GetDate()
+int check_input::get_date()
 {
     int day = 0;
     int month = 0;
@@ -75,21 +102,21 @@ int CheckInput::GetDate()
             cin.ignore((numeric_limits<streamsize>::max)(), '\n');
         }
 
-    } while (!GetCheckDate(day, month, year));
-    time_t rawtime;
-    struct tm* timeinfo;
-    time(&rawtime);
-    timeinfo = localtime(&rawtime);
-    timeinfo->tm_year = year - 1900;
-    timeinfo->tm_mon = month - 1;
-    timeinfo->tm_mday = day;
-    return  mktime(timeinfo);
+    } while (!check_date(day, month, year));
+    time_t raw_time;
+    time(&raw_time);
+    // ReSharper disable once CppDeprecatedEntity
+    tm* time_info = localtime(&raw_time);  // NOLINT(concurrency-mt-unsafe)
+    time_info->tm_year = year - 1900;
+    time_info->tm_mon = month - 1;
+    time_info->tm_mday = day;
+    return  mktime(time_info);  // NOLINT(bugprone-narrowing-conversions, clang-diagnostic-shorten-64-to-32, cppcoreguidelines-narrowing-conversions)
 }
 
 
-bool CheckInput::GetCheckDate(int day, int month, int year)
+bool check_input::check_date(const int day, const int month, const int year)
 {
-    bool month31[12]{ true, false, true, false, true, false, true, true, false, true, false, true };
+	constexpr bool month31[12]{ true, false, true, false, true, false, true, true, false, true, false, true };
     if (year < 1900 || year > 2037)
     {
         cout << "Некорректная дата" << endl;
@@ -107,7 +134,7 @@ bool CheckInput::GetCheckDate(int day, int month, int year)
     }
     if (month == 2)
     {
-        if ((day >= 1 && day <= 29 && (year % 4 == 0)) || (day >= 1 && day <= 28 && (year % 4 != 0))) return true;
+        if (day >= 1 && day <= 29 && year % 4 == 0 || day >= 1 && day <= 28 && year % 4 != 0) return true;
         cout << "Некорректный день в феврале" << endl;
         return false;
     }

@@ -1,15 +1,15 @@
-#include "groupUniver.h"
-#include "configs.h"
+// ReSharper disable CommentTypo
+#include "group_university.h"
 #include <iostream>
 
 using namespace std;
 
-GroupUniver::GroupUniver()
+group_university::group_university()
 {
 	cout << "GroupUniver конструктор по умолчанию вызван, память не выделяется" << endl;
 }
 
-GroupUniver::GroupUniver(int sizeArray) : Group(sizeArray)
+group_university::group_university(const int size_array) : group(size_array)
 {
 	cout << "GroupUniver конструктор вызван, память не выделяется" << endl;
 	//while (sizeArray < 1)
@@ -21,17 +21,17 @@ GroupUniver::GroupUniver(int sizeArray) : Group(sizeArray)
 	//NewExam();
 }
 
-GroupUniver::~GroupUniver()
+group_university::~group_university()
 {
 	cout << "GroupUniver деструктор вызван, память не очищается" << endl;
 }
 
-int GroupUniver::GetId()
+int group_university::get_id() const
 {
-	return id;
+	return id_;
 }
 
-void GroupUniver::SetId(int id)
+void group_university::set_id(const int id)
 {
-	this->id = id;
+	this->id_ = id;
 }

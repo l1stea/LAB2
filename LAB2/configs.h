@@ -1,103 +1,86 @@
+// ReSharper disable CommentTypo
 #pragma once
 #include <cstdint>
 
-class Configs
+class configs  // NOLINT(cppcoreguidelines-special-member-functions)
 {
 public:
 	// Количество групп в GroupUniver
-	int CountGroup = 3;
+	int count_group = 3;
 	// Длина строк в Exam
-	int nameLength = 100;
+	int name_length = 100;
 	// Размер группы в Unversity
-	int SizeGroup = 5;
+	int size_group = 5;
 	// Минимальная оценка в Exam
-	int minGrade = 2;
+	int min_grade = 2;
 	// Максимальная оценка в Exam
-	int maxGrade = 5;
+	int max_grade = 5;
 	// Минимальаня дата в Exam
-	int minDate = 0;
+	int min_date = 0;
 	// Максимальная дата в Exam
-	int maxDate = INT32_MAX;
+	int max_date = INT32_MAX;
 
 	// Дина строк вывода
-	int stringLength = 100;
+	int string_length = 100;
 	// Пустая строка
 	// char* globalNullString = "Не указано";
-	char* globalNullString = DefaultGlobalNullString();
-	char* globalNameStudent = DefaultGlobalNullString();
-	char* globalNameExaminer = DefaultGlobalNullString();
-	char* globalNameSubject = DefaultGlobalNullString();
+	char* global_null_string = default_global_null_string();
+	char* global_name_student = default_global_null_string();
+	char* global_name_examiner = default_global_null_string();
+	char* global_name_subject = default_global_null_string();
 
 
-	//const char* globalPrintNameStudent = "ФИО студента: ";
-	//const char* globalPrintNameExaminer = "ФИО экзаменатора: ";
-	//const char* globalPrintNameSubject = "Предмет: ";
-	//const char* globalPrintDate = "Дата: ";
-	//const char* globalPrintGrade = "Оценка: ";
+	char* global_print_name_student = default_global_print_name_student();
+	char* global_print_name_examiner = default_global_print_name_examiner();
+	char* global_print_name_subject = default_global_print_name_subject();
+	char* global_print_date = default_global_print_date();
+	char* global_print_grade = default_global_print_grade();
 
-	//const char* globalInputNameStudent = "Введите ФИО студента: ";
-	//const char* globalInputNameExaminer = "Введите ФИО преподователя: ";
-	//const char* globalInputNameSubject = "Введите предмет: ";
-	//const char* globalInputDate = "Введите дату: ";
-	//const char* globalInputGrade = "Введите оценку: ";
+	char* global_input_name_student = default_global_input_name_student();
+	char* global_input_name_examiner = default_global_input_name_examiner();
+	char* global_input_name_subject = default_global_input_name_subject();
+	char* global_input_date = default_global_input_date();
+	char* global_input_grade = default_global_input_grade();
+	char* global_input_error = default_global_input_error();
 
-	//const char* globalInputError = "Ошибка ввода: ";
-	char* globalPrintNameStudent = DefaultGlobalPrintNameStudent();
-	char* globalPrintNameExaminer = DefaultGlobalPrintNameExaminer();
-	char* globalPrintNameSubject = DefaultGlobalPrintNameSubject();
-	char* globalPrintDate = DefaultGlobalPrintDate();
-	char* globalPrintGrade = DefaultGlobalPrintGrade();
+	static char* default_global_null_string();
+	static char* default_global_print_name_student();
+	static char* default_global_print_name_examiner();
+	static char* default_global_print_name_subject();
+	static char* default_global_print_date();
+	static char* default_global_print_grade();
+	static char* default_global_input_name_student();
+	static char* default_global_input_name_examiner();
+	static char* default_global_input_name_subject();
+	static char* default_global_input_date();
+	static char* default_global_input_grade();
+	static char* default_global_input_error();
 
-	char* globalInputNameStudent = DefaultGlobalInputNameStudent();
-	char* globalInputNameExaminer = DefaultGlobalInputNameExaminer();
-	char* globalInputNameSubject = DefaultGlobalInputNameSubject();
-	char* globalInputDate = DefaultGlobalInputDate();
-	char* globalInputGrade = DefaultGlobalInputGrade();
-
-	char* globalInputError = DefaultGlobalInputError();
-
-	char* DefaultGlobalNullString();
-	char* DefaultGlobalPrintNameStudent();
-	char* DefaultGlobalPrintNameExaminer();
-	char* DefaultGlobalPrintNameSubject();
-	char* DefaultGlobalPrintDate();
-	char* DefaultGlobalPrintGrade();
-	char* DefaultGlobalInputNameStudent();
-	char* DefaultGlobalInputNameExaminer();
-	char* DefaultGlobalInputNameSubject();
-	char* DefaultGlobalInputDate();
-	char* DefaultGlobalInputGrade();
-	char* DefaultGlobalInputError();
-
-public:
-
-	int GetSizeGroup();
-	void SetSizeGroup(int sizeGroup);
+	int get_size_group() const;
+	void set_size_group(int m_size_group);
 	// Перегрузка оператора присваивания
-	Configs operator=(Configs i);
+	configs operator=(configs i) const;  // NOLINT(misc-unconventional-assign-operator)
 
-	int GetNameLength();
-	void SetNameLength(int nameLength);
+	int get_name_length() const;
+	void set_name_length(int m_name_length);
 
-	int GetCountGroup();
-	void SetCountGroup(int CountGroup);
+	int get_count_group() const;
+	void set_count_group(int m_count_group);
 
-	int GetMinGrade();
-	void SetMinGrade(int minGrade);
+	int get_min_grade() const;
+	void set_min_grade(int m_min_grade);
 
-	int GetMaxGrade();
-	void SetMaxGrade(int maxGrade);
+	int get_max_grade() const;
+	void set_max_grade(int m_max_grade);
 
-	int GetMinDate();
-	void SetMinDate(int minDate);
+	int get_min_date() const;
+	void set_min_date(int m_min_date);
 
-	int GetMaxDate();
-	void SetMaxDate(int maxDate);
+	int get_max_date() const;
+	void set_max_date(int m_max_date);
 
-	int GetStringLength();
-	void SetStringLength(int stringLength);
-
-
+	int get_string_length() const;
+	void set_string_length(int m_string_length);
 };
 
 

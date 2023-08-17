@@ -1,37 +1,35 @@
+// ReSharper disable CommentTypo
 #include "group.h"
 #include <iostream>
-#include "groupUniver.h"
 
 using namespace std;
 
 
 // Не должно быть вводимых данных
-Group::Group(int sizeArray)
+group::group(const int size_array)
 {
 	cout << "Group конструктор вызван" << endl;
-	this->sizeArray = sizeArray;
-	this->exam = new Exam[sizeArray]; // new - динамическое выделение памяти
+	this->size_array_ = size_array;
+	this->exam_ = new exam[size_array]; // динамическое выделение памяти
 }
 
-Group::Group()
+group::group()
 {
-
-	static const int constSizeArray = 2;
-	sizeArray = constSizeArray;
-	this->exam = new Exam[constSizeArray]; // динамическое выделение памяти
-	Exam examStat[constSizeArray]; // статическое выделение памяти
+	static constexpr int const_size_array = 1;
+	size_array_ = const_size_array;
+	this->exam_ = new exam[const_size_array]; // динамическое выделение памяти
 }
 
-Group::Group(int sizeArray, Exam* exam)
+group::group(const int size_array, exam* exam)
 {
 	//this->sizeArray = sizeArray;
-	this->exam = exam;
+	this->exam_ = exam;
 	int count = 0;
-	for (int i = 0; i < sizeArray; i++)
+	for (int i = 0; i < size_array; i++)
 	{
 		try
 		{
-			exam[i];
+			exam[i];  // NOLINT(clang-diagnostic-unused-value)
 			count++;
 		}
 		catch (...)
@@ -39,26 +37,26 @@ Group::Group(int sizeArray, Exam* exam)
 			cout << "\nНекорректно введен индекс" << endl;
 		}
 	}
-	this->sizeArray = sizeArray;
+	this->size_array_ = size_array;
 }
 
-Group::Group(Exam* exam)
+group::group(exam* exam)
 {
-	this->exam = exam;
+	this->exam_ = exam;
 }
 
-Group::~Group()
+group::~group()
 {
-	cout << "Group деструктор вызван" << endl;
-	delete[] exam; // Освобождение памяти и вызов деструктора для каждого элемента массива
+	cout << "Group деструктор вызван." << endl;
+	delete[] exam_; // Освобождение памяти и вызов деструктора для каждого элемента массива
 }
 
-void Group::Print()
+void group::print() const
 {
-	for (int i = 0; i < sizeArray; i++)
+	for (int i = 0; i < size_array_; i++)
 	{
 		try {
-			exam[i].Print();
+			exam_[i].print();
 		}
 		catch (...)
 		{
@@ -68,57 +66,57 @@ void Group::Print()
 }
 
 
-void Group::PutExam(int i, Exam& exam)
+void group::put_exam(const int i, const exam& ex) const
 {
-	if (i < 0 || i >= this->sizeArray)
+	if (i < 0 || i >= this->size_array_)
 	{
 		cout << "\nНекорректный индекс для ввода объекта Exam. Ввод не выполнен." << endl;
 		return;
 	}
-	this->exam[i] = exam;
+	exam_[i] = ex;
 }
 
-Exam& Group::GetExam(int i)
+exam& group::get_exam(const int i) const
 {
-	if (i < 0 || i >= this->sizeArray)
+	if (i < 0 || i >= this->size_array_)
 	{
 		cout << "\nНекорректный индекс для вывода объекта Exam. Вывод адреса объекта Exam без параметров." << endl;
-		Exam* exam = new Exam();
-		return *exam;
+		const auto ex = new exam();
+		return *ex;
 	}
-	return exam[i];
+	return exam_[i];
 }
 
-double Group::GetGrade()
+double group::get_grade() const
 {
-	int summ = 0;
-	for (int i = 0; i < sizeArray; i++)
+	int sum = 0;
+	for (int i = 0; i < size_array_; i++)
 	{
 		try
 		{
-			summ += exam[i].GetGrade();
+			sum += exam_[i].get_grade();
 		}
 		catch (...)
 		{
 			cout << "Ошибка при подсчёте суммы!";
 		}
 	}
-	return summ * 1.0 / sizeArray;
+	return sum * 1.0 / size_array_;
 }
 
-double Group::GetGrade(int limit)
+double group::get_grade(const int limit) const
 {
-	int summ = 0;
+	int sum = 0;
 	int count = 0; // Счётчик чисел
-	for (int i = 0; i < sizeArray; i++)
+	for (int i = 0; i < size_array_; i++)
 	{
 		try
 		{
-			int grade = exam[i].GetGrade();
+			const int grade = exam_[i].get_grade();
 			if (grade >= limit)
 			{
 				count++;
-				summ += grade;
+				sum += grade;
 			}
 		}
 		catch (...)
@@ -126,32 +124,32 @@ double Group::GetGrade(int limit)
 			cout << "Ошибка при подсчёте суммы!";
 		}
 	}
-	return summ * 1.0 / count;
+	return sum * 1.0 / count;
 }
 
-Exam& Group::operator[](int i)
+exam& group::operator[](const int i) const
 {
-	if (i < 0 || this->sizeArray <= i)
+	if (i < 0 || this->size_array_ <= i)
 	{
 		cout << "Некорректный индекс группы! Возвращается ссылка на объект Exam,";
 		cout << "созданным с помощью конструктора без парамтеров." << endl;
-		Exam* exam = new Exam();
-		return *exam;
+		const auto ex = new exam();
+		return *ex;
 	}
-	return GetExam(i);
+	return get_exam(i);
 }
 
-void Group::SetSize(int sizeArray)
+void group::set_size(const int size_array)
 {
-	this->sizeArray = sizeArray;
+	this->size_array_ = size_array;
 }
 
-int Group::GetSize()
+int group::get_size() const
 {
-	return this->sizeArray;
+	return this->size_array_;
 }
 
-void Group::NewExam()
+void group::new_exam()
 {
-	this->exam = new Exam[GetSize()];
+	this->exam_ = new exam[get_size()];
 }

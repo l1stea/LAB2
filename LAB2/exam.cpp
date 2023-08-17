@@ -1,4 +1,7 @@
-#define _CRT_SECURE_NO_WARNINGS
+// ReSharper disable CommentTypo
+// ReSharper disable CppDeprecatedEntity
+// ReSharper disable CppClangTidyClangDiagnosticDeprecatedDeclarations
+#define _CRT_SECURE_NO_WARNINGS  // NOLINT(clang-diagnostic-unused-macros)
 #include "exam.h"
 #include <iostream>
 #include "configs.h"
@@ -6,199 +9,234 @@
 using namespace std;
 
 
-void Exam::Input() {
+void exam::input() {
     try
     {
         string str;
 
-        do
-        {
-            cout << cfg.globalInputNameStudent;
-            cin >> str;
-            if (str.length() > cfg.GetNameLength()) cout << "Введенная строка больше заданной длины: " << cfg.GetNameLength() << endl;
-        } while (str.length() > cfg.GetNameLength());
-        strcpy(nameStudent, str.c_str());
 
         do
         {
-            cout << cfg.globalInputNameExaminer;
+            cout << cfg_.global_input_name_student;
             cin >> str;
-            if (str.length() > cfg.GetNameLength()) cout << "Введенная строка больше заданной длины: " << cfg.GetNameLength() << endl;
-        } while (str.length() > cfg.GetNameLength());
-        strcpy(nameExaminer, str.c_str());
+        } while (!check_input::check_string(str, cfg_.get_name_length()));
+        strcpy(name_student_, str.c_str());
+
 
         do
         {
-            cout << cfg.globalInputNameSubject;
+            cout << cfg_.global_input_name_examiner;
             cin >> str;
-            if (str.length() > cfg.GetNameLength()) cout << "Введенная строка больше заданной длины: " << cfg.GetNameLength() << endl;
-        } while (str.length() > cfg.GetNameLength());
-        strcpy(nameSubject, str.c_str());
+        } while (!check_input::check_string(str, cfg_.get_name_length()));
+        strcpy(name_examiner_, str.c_str());
 
-        date = CheckInput::GetDate(); // Проверка даты
-        grade = CheckInput::GetGrade(); // Проверка оценки от 2 до 5
+
+        do
+        {
+            cout << cfg_.global_input_name_subject;
+            cin >> str;
+        } while (!check_input::check_string(str, cfg_.get_name_length()));
+        strcpy(name_subject_, str.c_str());
+
+        date_ = check_input::get_date(); // Проверка даты
+        grade_ = check_input::get_grade(); // Проверка оценки от 2 до 5
         cout << endl;
     }
-    catch (exception ex)
+    catch (exception ex)  // NOLINT(misc-throw-by-value-catch-by-reference)
     {
-        cout << cfg.globalInputError << ex.what();
+        cout << cfg_.global_input_error << ex.what();
         cout << endl;
     }
 }
 
 
-void Exam::Print()
+void exam::print() const
 {
-    cout << cfg.globalPrintNameStudent << nameStudent << endl;
-    cout << cfg.globalPrintNameExaminer << nameExaminer << endl;
-    cout << cfg.globalPrintNameSubject << nameSubject << endl;
-    PrintDate();
-    cout << cfg.globalPrintGrade << grade << endl;
+    cout << cfg_.global_print_name_student << name_student_ << endl;
+    cout << cfg_.global_print_name_examiner << name_examiner_ << endl;
+    cout << cfg_.global_print_name_subject << name_subject_ << endl;
+    print_date();
+    cout << cfg_.global_print_grade << grade_ << endl;
     cout << endl;
 }
 
 
-Exam::Exam()
+exam::exam()
 {
-    this->nameStudent = new char[GetNameLength()];
-    this->nameExaminer = new char[GetNameLength()];
-    this->nameSubject = new char[GetNameLength()];
-    strcpy(nameStudent, cfg.globalNameStudent);
-    strcpy(nameExaminer, cfg.globalNameExaminer);
-    strcpy(nameSubject, cfg.globalNameSubject);
-    time_t t = time(nullptr);
-    this->date = t;
-    this->grade = 2;
+    this->name_student_ = new char[get_name_length()];
+    this->name_examiner_ = new char[get_name_length()];
+    this->name_subject_ = new char[get_name_length()];
+    strcpy(name_student_, cfg_.global_name_student);
+    strcpy(name_examiner_, cfg_.global_name_examiner);
+    strcpy(name_subject_, cfg_.global_name_subject);
+    const time_t t = time(nullptr);
+    this->date_ = t;
+    this->grade_ = 2;
 }
-Exam::~Exam()
+exam::~exam()
 {
-    cout << "Вызван Деструктор Exam (память динамически нигде не выделяется)\n";
-}
-;
-
-
-Exam::Exam(char* nameSt,
-    char* nameEx,
-    char* nameSb,
-    int dt,
-    int gd)
-{
-    nameStudent = new char[GetNameLength()];
-    nameExaminer = new char[GetNameLength()];
-    nameSubject = new char[GetNameLength()];
-    strcpy(nameStudent, nameSt);
-    strcpy(nameExaminer, nameEx);
-    strcpy(nameSubject, nameSb);
-    date = dt;
-    grade = gd;
-};
-
-int day(tm* localtm)
-{
-    return localtm->tm_mday;
+    cout << "Вызван Деструктор Exam.\n";
+    //delete[] name_student_;
+    //delete[] name_examiner_;
+    //delete[] name_subject_;
 }
 
-int month(tm* localtm)
+
+exam::exam(const char* name_student,
+           const char* name_examiner,
+           const char* name_subject,
+           const int date,
+           const int grade)
 {
-    return localtm->tm_mon + 1;
+    try {
+        name_student_ = new char[get_name_length()];
+        name_examiner_ = new char[get_name_length()];
+        name_subject_ = new char[get_name_length()];
+        strcpy(name_student_, name_student);
+        strcpy(name_examiner_, name_examiner);
+        strcpy(name_subject_, name_subject);
+        date_ = date;
+        if (grade < 2 || grade > 5)
+        {
+            cout << "Оценка должна быть от 2 до 5! Выставлена 2";
+            grade_ = 2;
+        }
+        else grade_ = grade;
+    }
+    catch (exception ex)  // NOLINT(misc-throw-by-value-catch-by-reference)
+    {
+        cout << ex.what();
+    }
 }
 
-int year(tm* localtm)
+exam::exam(const exam& ex)
 {
-    return localtm->tm_year + 1900;
+    cfg_ = ex.cfg_;
+    name_length_ = ex.name_length_;
+    name_student_ = ex.name_student_;
+    name_examiner_ = ex.name_examiner_;
+    name_subject_ = ex.name_subject_;
+    date_ = ex.date_;
+    grade_ = ex.grade_;
+}
+
+exam::exam(const char* name_student):
+exam(
+    name_student, 
+    "Не задан", 
+    "Не задан", 
+    time(nullptr), 
+    2)
+{}
+
+int day(const tm* local_time)
+{
+    return local_time->tm_mday;
+}
+
+int month(const tm* local_time)
+{
+    return local_time->tm_mon + 1;
+}
+
+int year(const tm* local_time)
+{
+    return local_time->tm_year + 1900;
 }
 
 
 //#include <limits>
-void Exam::PrintDate() {
-    time_t t = date;
+void exam::print_date() const
+{
+	const time_t t = date_;
     //t = LONG_MAX; // Проблема 2038 года, надо по хорошему использовать другую библиотеку, но по заданию надо использовать дату с типом int
-    tm* localtm = localtime(&t);
-    cout << cfg.globalPrintDate;
-    int coutday = day(localtm);
-    int coutmonth = month(localtm);
-    int coutyear = year(localtm);
-    cout << coutday << '/' << coutmonth << '/' << coutyear << endl;
+	const tm* local_time = localtime(&t);  // NOLINT(concurrency-mt-unsafe)
+    cout << cfg_.global_print_date;
+	const int output_day = day(local_time);
+	const int output_month = month(local_time);
+	const int output_year = year(local_time);
+    cout << output_day << '/' << output_month << '/' << output_year << endl;
 }
 
 //  Приведение типов
-Exam::operator double() { 
+exam::operator double() const
+{ 
     // Оператор this (указатель на объект) - 
     //в данном случае указывает на значание из объекта класса по указанному атрибуту
-    return this->grade; 
+    return this->grade_; 
 }
 
-int Exam::GetGrade()
+int exam::get_grade() const
 {
-    return grade;
+    return grade_;
 }
 
-Configs Exam::GetCfg()
+configs exam::get_cfg() const
 {
-    return this->cfg;
+    return this->cfg_;
 }
 
-void Exam::SetCfg(Configs cfg)
+void exam::set_cfg(const configs& cfg)
 {
-    this->cfg = cfg;
+    this->cfg_ = cfg;
 }
 
-void Exam::SetNameLength(int nameLength)
+void exam::set_name_length(const int name_length)
 {
-    this->nameLength = nameLength;
+    this->name_length_ = name_length;
 }
 
-char* Exam::GetNameStudent()
+const char* exam::get_name_student() const
 {
-    return this->nameStudent;
+    return this->name_student_;
 }
 
-void Exam::SetNameStudent(char* nameStudent)
+void exam::set_name_student(char* name_student)
 {
-    this->nameStudent = nameStudent;
+    this->name_student_ = name_student;
 }
 
-char* Exam::GetNameExaminer()
+char* exam::get_name_examiner() const
 {
-    return this->nameExaminer;
+    return this->name_examiner_;
 }
 
-void Exam::SetNameExaminer(char* nameExaminer)
+void exam::set_name_examiner(char* name_examiner)
 {
-    this->nameExaminer = nameExaminer;
+    this->name_examiner_ = name_examiner;
 }
 
-char* Exam::GetNameSubject()
+const char* exam::get_name_subject() const
 {
-    return this->nameSubject;
+    return this->name_subject_;
 }
 
-void Exam::SetNameSubject(char* nameSubject)
+void exam::set_name_subject(char* name_subject)
 {
-    this->nameSubject = nameSubject;
+    this->name_subject_ = name_subject;
 }
 
-long long Exam::GetDate()
+long long exam::get_date() const
 {
-    return this->date;
+    return this->date_;
 }
 
-void Exam::SetDate(long long date)
+void exam::set_date(const long long date)
 {
-    this->date = date;
+    this->date_ = date;
 }
 
-void Exam::SetGrade(int grade)
+void exam::set_grade(const int grade)
 {
-    this->grade = grade;
+    this->grade_ = grade;
 }
 
-int Exam::GetNameLength()
+int exam::get_name_length() const
 {
-    return this->nameLength;
+    return this->name_length_;
 }
 
-double operator+(Exam& ex1, Exam& ex2)
+double operator+(const exam& ex1, const exam& ex2)
 {
-    return ex1.grade + ex2.grade;
+    return ex1.grade_ + ex2.grade_;
 }
