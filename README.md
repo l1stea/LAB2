@@ -6,3 +6,6 @@
 
 ### 26.07.2023
 [Тимошенко ЕМ - Отчёт по ЛР №2.pdf](https://github.com/l1stea/LAB2/files/12174214/-.2.pdf)
+
+### 29.10.2023
+[Тимошенко ЕМ - Отчёт по ЛР №2.pdf](https://github.com/l1stea/LAB2/files/13197942/-.2.pdf)
