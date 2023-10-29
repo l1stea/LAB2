@@ -5,7 +5,6 @@
 #include "exam.h"
 #include <iostream>
 #include "configs.h"
-#include "checkInput.h"
 using namespace std;
 
 

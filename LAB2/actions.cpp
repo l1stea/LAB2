@@ -1,7 +1,6 @@
 // ReSharper disable CommentTypo
 #include "Actions.h"
 #include <Windows.h>
-#include "checkInput.h"
 #include "group.h"
 #include "group_university.h"
 #include <iostream>
