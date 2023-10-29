@@ -56,30 +56,30 @@ public:
 	static char* default_global_input_grade();
 	static char* default_global_input_error();
 
-	int get_size_group() const;
+	int get_size_group();
 	void set_size_group(int m_size_group);
 	// Перегрузка оператора присваивания
-	configs operator=(configs i) const;  // NOLINT(misc-unconventional-assign-operator)
+	configs operator=(configs i);  // NOLINT(misc-unconventional-assign-operator)
 
-	int get_name_length() const;
+	int get_name_length();
 	void set_name_length(int m_name_length);
 
-	int get_count_group() const;
+	int get_count_group();
 	void set_count_group(int m_count_group);
 
-	int get_min_grade() const;
+	int get_min_grade();
 	void set_min_grade(int m_min_grade);
 
-	int get_max_grade() const;
+	int get_max_grade();
 	void set_max_grade(int m_max_grade);
 
-	int get_min_date() const;
+	int get_min_date();
 	void set_min_date(int m_min_date);
 
-	int get_max_date() const;
+	int get_max_date();
 	void set_max_date(int m_max_date);
 
-	int get_string_length() const;
+	int get_string_length();
 	void set_string_length(int m_string_length);
 };
 

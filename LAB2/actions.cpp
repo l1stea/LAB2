@@ -8,20 +8,48 @@
 using namespace std;
 
 
-constexpr char names_stud[5][100] = { "Горбунов Парамон Платонович", "Морозов Максимилиан Федорович", "Тарасов Эрик Лукьянович",
+char names_stud[5][100] = { "Горбунов Парамон Платонович", "Морозов Максимилиан Федорович", "Тарасов Эрик Лукьянович",
 	"Калашников Дмитрий Рудольфович", "Рожков Адольф Егорович" };
-constexpr char names_exam[5][100] = { "Жуков Емельян Дмитрьевич", "Сазонов Леонард Никитевич", "Жданов Архип Владимирович",
+char names_exam[5][100] = { "Жуков Емельян Дмитрьевич", "Сазонов Леонард Никитевич", "Жданов Архип Владимирович",
 	"Зиновьев Эльдар Филатович", "Кудряшов Лазарь Геннадиевич" };
-constexpr char names_sub[5][100] = { "ООП", "Математический анализ", "Теория вероятности",
+char names_sub[5][100] = { "ООП", "Математический анализ", "Теория вероятности",
 	"Философия", "Информационная безопасность" };
+
+
+bool check_size_array(int size_array)
+{
+	if (size_array < 1)
+		return false;
+	return true;
+}
+
+
+int get_size_array()
+{
+	cout << "\nВведите количество студентов группы:";
+	int size_array;
+	cin >> size_array;
+	while (!check_size_array(size_array))
+	{
+		if (size_array < 1 && !cin.fail()) cout << "Размер группы должен быть больше 0!\n";
+		if (cin.fail()) {
+			cout << "Вы ввели не число или слишком большое число!\n";
+			cin.clear();
+			cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+		}
+		cout << "\nВведите количество студентов группы:";
+		cin >> size_array;
+	}
+	return size_array;
+}
 
 
 void actions::test_input_group()
 {
-	const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(handle, FOREGROUND_INTENSITY);
 
-	const group var_group(check_input::get_size_array());
+	group var_group(get_size_array());
 	for (int i = 0; i < var_group.get_size(); i++)
 	{
 		exam exam;
@@ -41,11 +69,11 @@ void actions::run_tasks()
 {
 
 
-	const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
 
-	constexpr int index = 5;
-	const group group_object(index); // Конструктор объекта класса Group
+	int index = 5;
+	group group_object(index); // Конструктор объекта класса Group
 	srand(time(nullptr));  // NOLINT(cert-msc51-cpp)
 	for (int i = 0; i < group_object.get_size(); i++)
 	{
@@ -62,7 +90,7 @@ void actions::run_tasks()
 	cout << endl;
 
 
-	const double grade = group_object.get_exam(3); // Неявное преобразование в double. Отдает оценку
+	double grade = group_object.get_exam(3); // Неявное преобразование в double. Отдает оценку
 	cout << "Неявное преобразование типа Exam в double 4-ого объекта: " << grade << endl;
 	cout << endl;
 
@@ -72,7 +100,7 @@ void actions::run_tasks()
 
 
 	cout << "\nПерегрузка оператора сложения: (1 и 2 объект): " << endl;
-	const double sum = group_object[0] + group_object[1];
+	double sum = group_object[0] + group_object[1];
 	cout << sum << endl;
 	cout << "----------------------------------------------------------------------------------------------------";
 	cout << endl;
@@ -81,7 +109,7 @@ void actions::run_tasks()
 
 void actions::test_group_university()
 {
-	const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(handle, FOREGROUND_BLUE);
 
 	// Cоздание группы 1
@@ -91,9 +119,9 @@ void actions::test_group_university()
 	for (int i = 0; i < group1.get_size(); i++)
 	{
 
-		exam exam(names_stud[i], names_exam[i], names_sub[i], time(nullptr), 2 + rand() % (5 - 2 + 1));
+		exam ex_test(names_stud[i], names_exam[i], names_sub[i], time(nullptr), 2 + rand() % (5 - 2 + 1));
 		// NOLINT(bugprone-narrowing-conversions, concurrency-mt-unsafe, cppcoreguidelines-narrowing-conversions)
-		group1.put_exam(i, exam); // Функция заполнения массива 
+		group1.put_exam(i, ex_test); // Функция заполнения массива 
 	}
 
 	// Создание группы 2
@@ -115,20 +143,20 @@ void actions::test_group_university()
 
 void actions::test_constructors_exam()
 {
-	const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
 
 
-	// Конструктор по умолчанию
+	// Cтатически по умолчанию
 	cout << "Конструктор Exam по умолчанию:\n";
-	const exam ex1;
+	exam ex1;
 	ex1.print();
 
 
-	// Конструктор с параметрами
+	// Статически с параметрами
 	// NOLINT(concurrency-mt-unsafe, concurrency-mt-unsafe, concurrency-mt-unsafe, bugprone-narrowing-conversions)
 	cout << "Конструктор Exam c параметрами:\n";
-	const exam ex2 (
+	exam ex2 (
 		names_stud[rand() % 5],
 		names_exam[rand() % 5],
 		names_sub[rand() % 5],
@@ -136,8 +164,18 @@ void actions::test_constructors_exam()
 		2 + rand() % (5 - 2 + 1));  
 	ex2.print();
 
-	// Конструктор со списком
-	cout << "Конструктор Exam cо списком инициализации:\n";
-	const exam ex3("Тимошенко ЕМ");
-	ex3.print();
+	// Динамичекски по умолчанию
+	cout << "Конструктор Exam по умолчанию с динамическим выделением памяти:\n";
+	exam *ex3 = new exam();
+	ex3->print();
+
+	// Динамически с параметрами
+	cout << "Конструктор Exam с параметрами с динамическим выделением памяти:\n";
+	exam *ex4 = new exam(
+		names_stud[rand() % 5],
+		names_exam[rand() % 5],
+		names_sub[rand() % 5],
+		time(nullptr),
+		2 + rand() % (5 - 2 + 1));
+	ex4->print();
 }

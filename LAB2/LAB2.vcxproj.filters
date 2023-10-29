@@ -47,9 +47,6 @@
     <ClInclude Include="checkInput.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="group.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>

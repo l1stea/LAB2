@@ -144,7 +144,6 @@
     <ClInclude Include="group.h" />
     <ClInclude Include="group_university.h" />
     <ClInclude Include="exam.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="LAB2.rc" />
