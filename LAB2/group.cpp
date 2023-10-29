@@ -12,6 +12,9 @@ group::group(int size_array): size_array_(size_array)
 {
 	try
 	{
+		string message = "Ошибка: количество должно быть больше 0!";
+		if (size_array <= 0)
+			throw message;
 		cout << "Вызван конструктор group" << endl;
 		//set_size(size_array);
 		this->exam_ = new exam[get_size()]; // динамическое выделение памяти
@@ -23,12 +26,12 @@ group::group(int size_array): size_array_(size_array)
 }
 
 
-
 group::group(): size_array_(1)
 {
 	//set_size(1);	
 	this->exam_ = new exam[get_size()]; // динамическое выделение памяти
 }
+
 
 group::group(int size_array, exam* ex): size_array_(size_array)
 {

@@ -8,7 +8,7 @@
 using namespace std;
 
 
-bool exam::saveNameStudent() {
+bool exam::save_name_student() {
     string str;
     cin >> str;
     if (str.length() > cfg_.get_name_length())
@@ -19,7 +19,7 @@ bool exam::saveNameStudent() {
     strcpy(name_student_, str.c_str());
     return true;
 }
-bool exam::saveNameExaminer() {
+bool exam::save_name_examiner() {
     string str;
     cin >> str;
     if (str.length() > cfg_.get_name_length())
@@ -30,7 +30,7 @@ bool exam::saveNameExaminer() {
     strcpy(name_examiner_, str.c_str());
     return true;
 }
-bool exam::saveNameSubject() {
+bool exam::save_name_subject() {
     string str;
     cin >> str;
     if (str.length() > cfg_.get_name_length())
@@ -41,7 +41,7 @@ bool exam::saveNameSubject() {
     strcpy(name_subject_, str.c_str());
     return true;
 }
-bool exam::saveDate() {
+bool exam::save_date() {
     int day = 0;
     int month = 0;
     int year = 0;
@@ -103,7 +103,7 @@ bool exam::check_date(int day, int month, int year)
     return false;
 }
 
-bool exam::saveGrade() {
+bool exam::save_grade() {
     int min = cfg_.min_grade;
     int max = cfg_.max_grade;
     int n;
@@ -133,28 +133,28 @@ void exam::input() {
         do
         {
             cout << cfg_.global_input_name_student;
-        } while (!saveNameStudent());
+        } while (!save_name_student());
        
         do
         {
             cout << cfg_.global_input_name_examiner;
-        } while (!saveNameExaminer());
+        } while (!save_name_examiner());
 
 
         do
         {
             cout << cfg_.global_input_name_subject;
-        } while (!saveNameSubject());
+        } while (!save_name_subject());
 
         do
         {
             cout << "Введите дату в формате День.Месяц.Год: ";
-        } while (!saveDate());
+        } while (!save_date());
 
         do
         {
             cout << "Введите оценку: ";
-        } while (!saveGrade());
+        } while (!save_grade());
 
         cout << endl;
     }
