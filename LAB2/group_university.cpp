@@ -19,7 +19,7 @@ group_university::~group_university()
 	cout << "Вызван деструктор group_university, память не очищается" << endl;
 }
 
-int group_university::get_id()
+int group_university::get_id() const
 {
 	return id_;
 }

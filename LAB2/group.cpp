@@ -16,41 +16,37 @@ group::group(int size_array): size_array_(size_array)
 		if (size_array <= 0)
 			throw message;
 		cout << "Вызван конструктор group" << endl;
-		//set_size(size_array);
-		this->exam_ = new exam[get_size()]; // динамическое выделение памяти
+		this->exam_ = new exam[get_size()](); // динамическое выделение памяти
 	}
-	catch (string message)  // NOLINT(misc-throw-by-value-catch-by-reference)
+	catch (string message)
 	{
 		cout << message << endl;
 	}
 }
 
 
-group::group(): size_array_(1)
-{
-	//set_size(1);	
-	this->exam_ = new exam[get_size()]; // динамическое выделение памяти
-}
+group::group(): size_array_(1), exam_(new exam[get_size()]())
+{}
 
 
-group::group(int size_array, exam* ex): size_array_(size_array)
+group::group(int size_array,exam* ex): size_array_(size_array), exam_(new exam[get_size()]())
 {
 	try {
-		this->exam_ = ex;
-		int count = 0;		
-		//set_size(size_array);
+		for (int i = 0; i < size_array; i++)
+		{
+			exam_[i] = ex[i];
+		}
 	}
 	catch (string message)  // NOLINT(misc-throw-by-value-catch-by-reference)
 	{
 		cout << message << endl;
-		/*set_size(1);*/
 	}
 }
 
 
 group::group(exam* exam): size_array_(1)
 {
-	this->exam_ = exam;
+	exam_ = exam;
 }
 
 
@@ -68,7 +64,7 @@ group::~group()
 	}
 }
 
-void group::print()
+void group::print() const
 {
 	for (int i = 0; i < size_array_; i++)
 	{
@@ -83,17 +79,30 @@ void group::print()
 }
 
 
-void group::put_exam(int i, exam& ex)
+void group::put_exam(int i,const exam& ex)
 {
 	if (i < 0 || i >= this->size_array_)
 	{
 		cout << "\nНекорректный индекс для ввода объекта Exam. Ввод не выполнен." << endl;
 		return;
 	}
-	exam_[i] = ex;
+	//exam_[i] = ex;
+	//exam_[i].set_cfg(ex.get_cfg());
+	exam_[i].set_date(ex.get_date());
+	exam_[i].set_grade(ex.get_grade());
+	if (exam_->get_name_length() == ex.get_name_length())
+	{
+		exam_[i].set_name_examiner(ex.get_name_examiner());
+		exam_[i].set_name_student(ex.get_name_student());
+		exam_[i].set_name_subject(ex.get_name_subject());
+	}
+	else {
+		string message = "\nСимвольные массивы не совпадают по длине!\n";
+		throw message;
+	}
 }
 
-exam& group::get_exam(int i)
+exam& group::get_exam(int i) const
 {
 	if (i < 0 || i >= this->size_array_)
 	{
@@ -104,7 +113,7 @@ exam& group::get_exam(int i)
 	return exam_[i];
 }
 
-double group::get_grade()
+double group::get_grade() const
 {
 	int sum = 0;
 	try
@@ -122,7 +131,7 @@ double group::get_grade()
 	return sum * 1.0 / size_array_;
 }
 
-double group::get_grade(int limit)
+double group::get_grade(int limit) const
 {
 	int sum = 0;
 	int count = 0; // Счётчик чисел
@@ -167,7 +176,7 @@ exam& group::operator[](int i)
 //	this->size_array_ = size_array;
 //}
 
-int group::get_size()
+int group::get_size() const
 {
 	return this->size_array_;
 }

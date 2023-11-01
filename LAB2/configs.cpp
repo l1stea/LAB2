@@ -90,88 +90,82 @@ void configs::set_string_length(int m_string_length)
     this->string_length = m_string_length;
 }
 
+configs::~configs()
+{
+    delete[] global_null_string;
+    delete[] global_name_student;
+    delete[] global_name_examiner;
+    delete[] global_name_subject;
+    delete[] global_print_name_student;
+    delete[] global_print_name_examiner;
+    delete[] global_print_name_subject;
+    delete[] global_print_date;
+    delete[] global_input_name_student;
+    delete[] global_input_name_examiner;
+    delete[] global_input_name_subject;
+    delete[] global_input_date;
+    delete[] global_input_grade;
+    delete[] global_input_error;
+}
+
 char* configs::default_global_null_string()
 {
-	auto var_return = new char[100];
-    strcpy(var_return, "Не указано");
-    return var_return;
+    return new char[]("Не указано");
 }
 
 char* configs::default_global_print_name_student()
 {
-	auto var_return = new char[100];
-    strcpy(var_return, "ФИО студента: ");
-    return var_return;
+    return new char[]("ФИО студента: ");
 }
 
 char* configs::default_global_print_name_examiner()
 {
-	auto var_return = new char[100];
-    strcpy(var_return, "ФИО экзаменатора: ");
-    return var_return;
+    return new char[]("ФИО экзаменатора: ");
 }
 
 char* configs::default_global_print_name_subject()
 {
-	auto var_return = new char[100];
-    strcpy(var_return, "Предмет: ");
-    return var_return;
+    return new char[]("Предмет: ");
 }
 
 char* configs::default_global_print_date()
 {
-	auto var_return = new char[100];
-    strcpy(var_return, "Дата: ");
-    return var_return;
+    return new char[]("Дата: ");
 }
 
 char* configs::default_global_print_grade()
 {
-	auto var_return = new char[100];
-    strcpy(var_return, "Оценка: ");
-    return var_return;
+    return new char[]("Оценка: ");
 }
 
 char* configs::default_global_input_name_student()
 {
-	auto var_return = new char[100];
-    strcpy(var_return, "Введите ФИО студента: ");
-    return var_return;
+    return new char[]("Введите ФИО студента: ");
 }
 
 char* configs::default_global_input_name_examiner()
 {
-	auto var_return = new char[100];
-    strcpy(var_return, "Введите ФИО преподователя: ");
-    return var_return;
+    return new char[]("Введите ФИО преподователя: ");
 }
 
 char* configs::default_global_input_name_subject()
 {
-	auto var_return = new char[100];
-    strcpy(var_return, "Введите предмет: ");
-    return var_return;
+    return new char[]("Введите предмет: ");
 }
 
 char* configs::default_global_input_date()
 {
-	auto var_return = new char[100];
-    strcpy(var_return, "Введите дату: ");
-    return var_return;
+    return new char[]("Введите дату: ");
 }
 
 char* configs::default_global_input_grade()
 {
-	auto var_return = new char[100];
-    strcpy(var_return, "Введите оценку: ");
-    return var_return;
+    return new char[]("Введите оценку: ");
 }
 
 char* configs::default_global_input_error()
 {
-	auto var_return = new char[100];
-    strcpy(var_return, "Ошибка ввода: ");
-    return var_return;
+    return new char[]("Ошибка ввода: ");
 }
 
 

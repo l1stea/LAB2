@@ -1,6 +1,4 @@
-// ReSharper disable CommentTypo
-// ReSharper disable CppClangTidyClangDiagnosticShorten64To32
-#include <Windows.h> // Обязательно для SetConsoleCP() и SetConsoleOutputCP()
+#include <Windows.h> // Для SetConsoleCP() и SetConsoleOutputCP()
 #include "actions.h"
 
 void main()

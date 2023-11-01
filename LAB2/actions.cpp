@@ -1,4 +1,3 @@
-// ReSharper disable CommentTypo
 #include "Actions.h"
 #include <Windows.h>
 #include "group.h"
@@ -153,7 +152,6 @@ void actions::test_constructors_exam()
 
 
 	// Статически с параметрами
-	// NOLINT(concurrency-mt-unsafe, concurrency-mt-unsafe, concurrency-mt-unsafe, bugprone-narrowing-conversions)
 	cout << "Конструктор Exam c параметрами:\n";
 	exam ex2 (
 		names_stud[rand() % 5],
@@ -168,6 +166,8 @@ void actions::test_constructors_exam()
 	exam *ex3 = new exam();
 	ex3->print();
 
+	delete ex3;
+
 	// Динамически с параметрами
 	cout << "Конструктор Exam с параметрами с динамическим выделением памяти:\n";
 	exam *ex4 = new exam(
@@ -177,4 +177,9 @@ void actions::test_constructors_exam()
 		time(nullptr),
 		2 + rand() % (5 - 2 + 1));
 	ex4->print();
+
+	delete ex4;
+
+	exam *ex5 = new exam[2];
+	delete[] ex5;
 }

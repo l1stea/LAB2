@@ -5,6 +5,7 @@
 class configs  // NOLINT(cppcoreguidelines-special-member-functions)
 {
 public:
+	~configs();
 	// Количество групп в GroupUniver
 	int count_group = 3;
 	// Длина строк в Exam

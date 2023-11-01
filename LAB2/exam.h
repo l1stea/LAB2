@@ -18,55 +18,55 @@ private:
     // int date; Потеря данных при использовании time_t
     long long date_;
     int grade_;
-    int get_name_length();
 public:
     // Конструктор с параметрами
-    exam(char* name_student,  // NOLINT(readability-inconsistent-declaration-parameter-name)
-         char* name_examiner,
-         char* name_subject,
+    exam(const char* name_student,  // NOLINT(readability-inconsistent-declaration-parameter-name)
+         const char* name_examiner,
+         const char* name_subject,
          int date,
          int grade = 2); // Параметр по умолчанию
     exam(exam& ex);
-    explicit exam(char* name_student); // Конструктор со списком инициализации
+    exam(char* name_student); // Конструктор со списком инициализации
     // Конструктор без параметров
     exam();
     // Деструктор
     ~exam();
     // Метод вывода
-    void print();
-    bool saveNameStudent();
-    bool saveNameExaminer();
-    bool saveNameSubject();
-    bool saveDate();
-    bool check_date(int day, int month, int year);
-    bool saveGrade();
+    void print() const;
+    bool save_name_student();
+    bool save_name_examiner();
+    bool save_name_subject();
+    bool save_date();
+    bool save_grade();
+    bool check_date(int day, int month, int year) const;
     // Метод вывода
     void input();
     // Метод вывода даты
-    void print_date();
+    void print_date() const;
     // Приведение в double
     // ReSharper disable once CppNonExplicitConversionOperator
     operator double();
     // Метод возращения аргумента grade
-    int get_grade();
+    int get_grade() const;
     // Перегрузка операнда +
-    friend double operator+(exam& ex1, exam& ex2);
+    friend double operator+(exam& ex1,exam& ex2);
 
-    configs get_cfg();
-    void set_cfg(configs& cfg);
+    configs get_cfg() const;
+    void set_cfg(const configs& cfg);
 
+    int get_name_length() const;
     void set_name_length(int name_length);
 
-    char* get_name_student();
-    void set_name_student(char* name_student);
+    char* get_name_student() const;
+    void set_name_student(const char* name_student);
 
-    char* get_name_examiner();
-    void set_name_examiner(char* name_examiner);
+    char* get_name_examiner() const;
+    void set_name_examiner(const char* name_examiner);
 
-    char* get_name_subject();
-    void set_name_subject(char* name_subject);
+    char* get_name_subject() const;
+    void set_name_subject(const char* name_subject);
 
-    long long get_date();
+    long long get_date() const;
     void set_date(long long date);
 
     void set_grade(int grade);

@@ -9,8 +9,8 @@ private:
 public:
 	group_university();
 	// Конструктор класса GroupUniver и добавление новых функций
-	explicit group_university(int size_array);
+	group_university(int size_array);
 	~group_university();
-	int get_id();
+	int get_id() const;
 	void set_id(int id);
 };

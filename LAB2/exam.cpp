@@ -72,7 +72,7 @@ bool exam::save_date() {
 
 
 
-bool exam::check_date(int day, int month, int year)
+bool exam::check_date(int day, int month, int year) const
 {
     constexpr bool month31[12]{ true, false, true, false, true, false, true, true, false, true, false, true };
     if (year < 1900 || year > 2037)
@@ -166,7 +166,7 @@ void exam::input() {
 }
 
 
-void exam::print()
+void exam::print() const
 {
     cout << cfg_.global_print_name_student << name_student_ << endl;
     cout << cfg_.global_print_name_examiner << name_examiner_ << endl;
@@ -192,15 +192,15 @@ exam::exam()
 exam::~exam()
 {
     cout << "Вызван Деструктор exam.\n";
-    //delete[] name_student_;
-    //delete[] name_examiner_;
-    //delete[] name_subject_;
+    delete[] name_student_;
+    delete[] name_examiner_;
+    delete[] name_subject_;
 }
 
 
-exam::exam(char* name_student,
-           char* name_examiner,
-           char* name_subject,
+exam::exam(const char* name_student,
+           const char* name_examiner,
+           const char* name_subject,
            int date,
            int grade)
 {
@@ -227,24 +227,20 @@ exam::exam(char* name_student,
 
 exam::exam(exam& ex)
 {
-    cfg_ = ex.cfg_;
-    name_length_ = ex.name_length_;
-    name_student_ = ex.name_student_;
-    name_examiner_ = ex.name_examiner_;
-    name_subject_ = ex.name_subject_;
-    date_ = ex.date_;
-    grade_ = ex.grade_;
+    *this = ex;
 }
 
-//Внутренняя ошибка компилятора
-//exam::exam(char* name_student):
-//    exam(
-//    new char[name_length_](*name_student), 
-//    new char[name_length_]("Не задан"),
-//    new char[name_length_]("Не задан"),
-//    time(nullptr), 
-//    2)
-//{}
+exam::exam(char* name_student)
+{
+    name_student_ = new char[name_length_]();
+    name_examiner_ = new char[name_length_]();
+    name_subject_ = new char[name_length_]();
+    strcpy(name_student_, name_student);
+    strcpy(name_examiner_, cfg_.global_name_examiner);
+    strcpy(name_subject_, cfg_.global_name_subject);
+    date_ = time(nullptr);
+    grade_ = 2;
+}
 
 int day(tm* local_time)
 {
@@ -263,7 +259,7 @@ int year(tm* local_time)
 
 
 //#include <limits>
-void exam::print_date()
+void exam::print_date() const
 {
 	time_t t = date_;
     //t = LONG_MAX; // Проблема 2038 года, надо по хорошему использовать другую библиотеку, но по заданию надо использовать дату с типом int
@@ -283,17 +279,17 @@ exam::operator double()
     return this->grade_; 
 }
 
-int exam::get_grade()
+int exam::get_grade() const
 {
     return grade_;
 }
 
-configs exam::get_cfg()
+configs exam::get_cfg() const
 {
     return this->cfg_;
 }
 
-void exam::set_cfg(configs& cfg)
+void exam::set_cfg(const configs& cfg)
 {
     this->cfg_ = cfg;
 }
@@ -303,37 +299,46 @@ void exam::set_name_length(int name_length)
     this->name_length_ = name_length;
 }
 
-char* exam::get_name_student()
+char* exam::get_name_student() const
 {
     return this->name_student_;
 }
 
-void exam::set_name_student(char* name_student)
+void exam::set_name_student(const char* name_student)
 {
-    this->name_student_ = name_student;
+    for (int i = 0; i < name_length_; i++)
+    {
+        name_student_[i] = name_student[i];
+    }
 }
 
-char* exam::get_name_examiner()
+char* exam::get_name_examiner() const
 {
     return this->name_examiner_;
 }
 
-void exam::set_name_examiner(char* name_examiner)
+void exam::set_name_examiner(const char* name_examiner)
 {
-    this->name_examiner_ = name_examiner;
+    for (int i = 0; i<name_length_;i++)
+    {
+        name_examiner_[i] = name_examiner[i];
+    }
 }
 
-char* exam::get_name_subject()
+char* exam::get_name_subject() const
 {
     return this->name_subject_;
 }
 
-void exam::set_name_subject(char* name_subject)
+void exam::set_name_subject(const char* name_subject)
 {
-    this->name_subject_ = name_subject;
+    for (int i = 0; i < name_length_; i++)
+    {
+        name_subject_[i] = name_subject[i];
+    }
 }
 
-long long exam::get_date()
+long long exam::get_date() const
 {
     return this->date_;
 }
@@ -348,12 +353,12 @@ void exam::set_grade(int grade)
     this->grade_ = grade;
 }
 
-int exam::get_name_length()
+int exam::get_name_length() const
 {
     return this->name_length_;
 }
 
 double operator+(exam& ex1, exam& ex2)
 {
-    return ex1.grade_ + ex2.grade_;
+    return ex1.get_grade() + ex2.get_grade();
 }
